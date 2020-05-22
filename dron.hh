@@ -9,12 +9,13 @@
 
 #include <vector>
 #include "Dr3D_gnuplot_api.hh"
+#include "obiekt.h"
 
 using drawNS::Point3D;
 
 //clasa dron dziedziczy z prostopad długości boków oraz z bryly orientacje
 // metody na wyliczenie orientacji są w bryle, natomiast w tej klasie jest metoda na wyliczanie wierzcholkow po ruchu
-class dron :public prostopad, public bryla
+class dron : public Obiekt, public prostopad, public bryla
 {    
     public:
     //konstruktor w którym wyznaczam zależności współrzędnych każdego punktu w zależności punktu S
@@ -23,7 +24,7 @@ class dron :public prostopad, public bryla
     //funkcja wyliczająca wektory wierzcholkow
     Wektor licz_wierzcholki(const Wektor S);
 
-    std::vector<std::vector<Point3D> > surface() const;
+    std::vector<std::vector<Point3D> > surface() const override;
 
 private:
     Wektor A,B,C,D,E,F,G,H;//abcd podstawa efgh górna podstawa

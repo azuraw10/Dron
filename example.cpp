@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Dr3D_gnuplot_api.hh"
 #include "dron.hh"
+#include "dno.h"
 
 using std::vector;
 using drawNS::Point3D;
@@ -15,27 +16,19 @@ void wait4key() {
 }
 
 int main() {
-
-
   dron dron;
+  Dno dno(-5);
+  Dno powierzhcnia(4); // chwilowo użyj tej samej klasy dla powierzchni
 
   std::shared_ptr<drawNS::Draw3DAPI> api(new APIGnuPlot3D(-5,5,-5,5,-5,5,1000)); //włacza gnuplota, pojawia się scena [-5,5] x [-5,5] x [-5,5] odświeżana co 1000 ms
   api->change_ref_time_ms(0); //odświeżanie sceny zmienione na opcję "z każdym pojawieniem się lub zniknięciem kształtu"
 
-  api->draw_surface(dron.surface());
+  api->draw_surface(dron.surface(), "red");
+  api->draw_surface(dno.surface(), "grey");
+  api->draw_surface(powierzhcnia.surface(), "blue");
 
 
-  //rysowanie dna, taflę wody chcę zrobić podobnie z tym że chcę uzależnić ją od sin albo cos
-//  for(int i=-5; i<5; i++)
-//  {
-//  api->draw_surface(vector<vector<Point3D>> {{
-//    drawNS::Point3D(i,-5, -5), drawNS::Point3D(i,5,-5)
-//  },{
-//    drawNS::Point3D(-5,i,-5), drawNS::Point3D(5,i,-5)
-//  }}, "grey");
-//  }
-
-    wait4key();
+  wait4key();
   
   /*int a=api->draw_line(drawNS::Point3D(0,0,0),drawNS::Point3D(2,0,0)); //rysuje linię pomiędzy (0,0,0) a (2,0,0), zapamiętuje id kształtu w zmiennej a 
   api->draw_line(drawNS::Point3D(0,0,0),drawNS::Point3D(0,0,5),"red"); //rysuje czerwoną linie pomiędzy (0,0,0) a (0,0,5)
