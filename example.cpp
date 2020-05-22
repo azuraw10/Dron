@@ -22,7 +22,8 @@ dron DD;
   //drawNS::Draw3DAPI * api = new APIGnuPlot3D(-5,5,-5,5,-5,5,1000); //alternatywnie zwykły wskaźnik
   api->change_ref_time_ms(0); //odświeżanie sceny zmienione na opcję "z każdym pojawieniem się lub zniknięciem kształtu"
   
-  //ogólna funkcja do rysowania prostopadłościanu później chciałbym zamienić te wartości na wektory 
+  //ogólna funkcja do rysowania prostopadłościanu później chciałbym zamienić te wartości na wektory
+  //najprawdopodbniej przez błąd w klasie dron nie może poprawnie odczytać pierwszego wierzchołka w postaci wektora
   api->draw_surface(vector<vector<Point3D> > {{
 	drawNS::Point3D(DD.A), drawNS::Point3D(0,2,0), drawNS::Point3D(2,2,0), drawNS::Point3D(2,0,0), drawNS::Point3D(0,0,0)
 	  },{

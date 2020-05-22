@@ -22,10 +22,11 @@ Wektor dron::operator [](string i)
 }
 
 //w tej funkcji chciałem aktualizować współrzędne wektorów
+//nie wiem jak się odwołać do poszczególnego wektora natomiast wydaje mi się, że (*this) powinno wystarczyć
 Wektor dron::licz_wierzcholki(const Wektor trans)   
 {                                               
     Wektor Wynik;
 
-    Wynik=(*this)+S;
+    Wynik=orient*(*this)+trans; //orient pochodzi z klasy bryla, natomiast trans będzie wyliczane na podstawie cos i sin w razie jakby płynął pod kątem
     return Wynik;
 }
