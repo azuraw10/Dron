@@ -1,27 +1,27 @@
 #include "dron.hh"
+#include "math.h"
 
-//W tej funkcji chciałem stworzyć dostęp do wektorów w klasie dron
-// nie wiem jak zrobić to sprytniej
-//wyskakuje błąd z stringiem, że jest niezdefiniowany
-dron::dron(int x, int y, int z, float a, float b, float c)
+Dron::Dron(int x, int y, int z, float a, float b, float c)
     :prostopad(a,b,c)
 {
+    wierzcholki.resize(8);
+
     S[0]=x;
     S[1]=y;
     S[2]=z;
-    A[0]=-a/2;  A[1]=-b/2;  A[2]=-c/2;
-    B[0]=a/2;  B[1]=-b/2;   B[2]=-c/2;
-    C[0]=a/2;  C[1]=b/2;    C[2]=-c/2;
-    D[0]=-a/2;  D[1]=b/2;   D[2]=-c/2;
-    E[0]=-a/2;   E[1]=-b/2;   E[2]=c/2;
-    F[0]=a/2;   F[1]=-b/2;   F[2]=c/2;
-    G[0]=a/2;   G[1]=b/2;   G[2]=c/2;
-    H[0]=-a/2;   H[1]=b/2;   H[2]=c/2;
+    wierzcholki[0][0]=-a/2; wierzcholki[0][1]=-b/2;  wierzcholki[0][2]=-c/2;
+    wierzcholki[1][0]=a/2;  wierzcholki[1][1]=-b/2;  wierzcholki[1][2]=-c/2;
+    wierzcholki[2][0]=a/2;  wierzcholki[2][1]=b/2;   wierzcholki[2][2]=-c/2;
+    wierzcholki[3][0]=-a/2; wierzcholki[3][1]=b/2;   wierzcholki[3][2]=-c/2;
+    wierzcholki[4][0]=-a/2; wierzcholki[4][1]=-b/2;  wierzcholki[4][2]=c/2;
+    wierzcholki[5][0]=a/2;  wierzcholki[5][1]=-b/2;  wierzcholki[5][2]=c/2;
+    wierzcholki[6][0]=a/2;  wierzcholki[6][1]=b/2;   wierzcholki[6][2]=c/2;
+    wierzcholki[7][0]=-a/2; wierzcholki[7][1]=b/2;   wierzcholki[7][2]=c/2;
 }
 
 //w tej funkcji chciałem aktualizować współrzędne wektorów
 //nie wiem jak się odwołać do poszczególnego wektora natomiast wydaje mi się, że (*this) powinno wystarczyć
-Wektor dron::licz_wierzcholki(const Wektor trans)   
+Wektor Dron::licz_wierzcholki(const Wektor trans)
 {                                               
     Wektor Wynik;
 
@@ -29,7 +29,20 @@ Wektor dron::licz_wierzcholki(const Wektor trans)
     return Wynik;
 }
 
-std::vector<std::vector<drawNS::Point3D> > dron::surface() const
+std::vector<std::vector<drawNS::Point3D> > Dron::surface() const
 {
-    return { {A, B, C, D, A }, { E, F, G, H, E } };
+    auto createSurface = [this](const std::vector<int> &indeksy) -> std::vector<drawNS::Point3D> {
+        std::vector<drawNS::Point3D> vec;
+        for (int index : indeksy) {
+            vec.push_back(wierzcholki[index]);
+        }
+        return vec;
+    };
+
+    return { createSurface({ 0,1,2,3,0 }), createSurface({ 4,5,6,7,4  }) };
+}
+
+void Dron::rotacja(double kat)
+{
+    rotacjaZ(&wierzcholki, S, kat);
 }

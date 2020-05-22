@@ -15,19 +15,21 @@ using drawNS::Point3D;
 
 //clasa dron dziedziczy z prostopad długości boków oraz z bryly orientacje
 // metody na wyliczenie orientacji są w bryle, natomiast w tej klasie jest metoda na wyliczanie wierzcholkow po ruchu
-class dron : public Obiekt, public prostopad, public bryla
+class Dron : public Obiekt, public prostopad, public bryla
 {    
-    public:
+public:
     //konstruktor w którym wyznaczam zależności współrzędnych każdego punktu w zależności punktu S
-    dron(int x=0, int y=0, int z=0, float a=2, float b=2, float c=2);
+    Dron(int x=0, int y=0, int z=0, float a=2, float b=3, float c=2);
 
     //funkcja wyliczająca wektory wierzcholkow
     Wektor licz_wierzcholki(const Wektor S);
 
     std::vector<std::vector<Point3D> > surface() const override;
 
+    void rotacja(double kat);
+
 private:
-    Wektor A,B,C,D,E,F,G,H;//abcd podstawa efgh górna podstawa
+    std::vector<Wektor> wierzcholki;
     Wektor S;
 };
 

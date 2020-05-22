@@ -2,12 +2,58 @@
 #include "Dr3D_gnuplot_api.hh"
 #include "dron.hh"
 #include "dno.h"
+#include "silnik.h"
 
 using std::vector;
 using drawNS::Point3D;
 using drawNS::APIGnuPlot3D;
 using std::cout;
 using std::endl;
+
+void wyswietlMenu()
+{
+    cout << "Menu\n";
+    cout << "========\n";
+    cout << "o - Rotacja.\n";
+    cout << "c - Reset do położenia domyślnego.\n";
+    cout << "m - Wyświetl menu.\n";
+    cout << "k - Zakończ program.\n";
+    cout << "Twoj wybor, m - menu:\n";
+}
+
+bool odczytjWyborIWykonajAkcje(Silnik *silnik)
+{
+    char selection;
+
+    cin >> selection;
+
+    switch(selection) {
+    case 'o': {
+        cout << "Podaj wartosc kata obrotu w stopniach:";
+        double kat;
+        cin >> kat;
+        silnik->obrocDrona(kat);
+        break;
+    }
+    case 'c': {
+        // TODO
+        break;
+    }
+    case 'm': {
+        wyswietlMenu();
+        break;
+    }
+    case 'k': {
+        return false;
+    }
+    default:
+        cout<<"\n Niepoprawny wybór!";
+    }
+
+    cout<<"\n";
+
+    return true;
+}
 
 void wait4key() {
   do {
@@ -16,19 +62,12 @@ void wait4key() {
 }
 
 int main() {
-  dron dron;
-  Dno dno(-5);
-  Dno powierzhcnia(4); // chwilowo użyj tej samej klasy dla powierzchni
+  Silnik silnik;
 
-  std::shared_ptr<drawNS::Draw3DAPI> api(new APIGnuPlot3D(-5,5,-5,5,-5,5,1000)); //włacza gnuplota, pojawia się scena [-5,5] x [-5,5] x [-5,5] odświeżana co 1000 ms
-  api->change_ref_time_ms(0); //odświeżanie sceny zmienione na opcję "z każdym pojawieniem się lub zniknięciem kształtu"
+  wyswietlMenu();
+  while (odczytjWyborIWykonajAkcje(&silnik)) {}
 
-  api->draw_surface(dron.surface(), "red");
-  api->draw_surface(dno.surface(), "grey");
-  api->draw_surface(powierzhcnia.surface(), "blue");
-
-
-  wait4key();
+  //wait4key();
   
   /*int a=api->draw_line(drawNS::Point3D(0,0,0),drawNS::Point3D(2,0,0)); //rysuje linię pomiędzy (0,0,0) a (2,0,0), zapamiętuje id kształtu w zmiennej a 
   api->draw_line(drawNS::Point3D(0,0,0),drawNS::Point3D(0,0,5),"red"); //rysuje czerwoną linie pomiędzy (0,0,0) a (0,0,5)
