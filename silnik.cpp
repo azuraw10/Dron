@@ -5,7 +5,7 @@ Silnik::Silnik()
 {
     gnutplotApi.change_ref_time_ms(0);
 
-    dronId = gnutplotApi.draw_surface(dron.surface(), "red");
+    dodajDrona();
     gnutplotApi.draw_surface(dno.surface(), "grey");
     gnutplotApi.draw_surface(powierzchnia.surface(), "blue");
 }
@@ -14,6 +14,13 @@ void Silnik::obrocDrona(double kat)
 {
     usunDrona();
     dron.rotacja(kat);
+    dodajDrona();
+}
+
+void Silnik::wykonajRuchDrona(double kat, double odleglosc)
+{
+    usunDrona();
+    dron.wykonajRuch(kat, odleglosc);
     dodajDrona();
 }
 

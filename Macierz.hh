@@ -27,8 +27,8 @@ class Macierz
     Wektor & operator[] (int index) {if(index>3 || index<0){exit(1);}else return tab[index];}
 
     //funkcje które potrzebujemy do obliczenia orientacji i obrotu bryły
-    Wektor operator * (Wektor W);
-    Macierz operator * (Macierz M);
+    Wektor operator * (const Wektor &W) const;
+    Macierz operator * (const Macierz &M) const;
 };
 
 #endif

@@ -9,11 +9,11 @@
 #define PI 3.14159265
 
 //klasa mająca na celu pilnowanie orientacji bryły/prostopadloscianu/drona
-class bryla
+class Bryla
 {
-    public:
+public:
     //konstruktor który daje na przekątnej wartości 1 czyli początkową orientację
-    bryla()
+    Bryla()
     {
         for (int i=0; i<3; i++)
         {

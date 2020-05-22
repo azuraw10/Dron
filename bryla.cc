@@ -1,7 +1,7 @@
 #include "bryla.hh"
 
 //obracamy o podany kąt
-Macierz bryla::obrotZ(double kat)
+Macierz Bryla::obrotZ(double kat)
 {
     Macierz Wynik, obrot;
 

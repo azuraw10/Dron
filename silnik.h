@@ -11,6 +11,7 @@ public:
     Silnik();
 
     void obrocDrona(double kat);
+    void wykonajRuchDrona(double kat, double odleglosc);
 
 private:
     void usunDrona();

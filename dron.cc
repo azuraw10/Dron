@@ -2,7 +2,7 @@
 #include "math.h"
 
 Dron::Dron(int x, int y, int z, float a, float b, float c)
-    :prostopad(a,b,c)
+    :Prostopad(a,b,c)
 {
     wierzcholki.resize(8);
 
@@ -21,12 +21,11 @@ Dron::Dron(int x, int y, int z, float a, float b, float c)
 
 //w tej funkcji chciałem aktualizować współrzędne wektorów
 //nie wiem jak się odwołać do poszczególnego wektora natomiast wydaje mi się, że (*this) powinno wystarczyć
-Wektor Dron::licz_wierzcholki(const Wektor trans)
+void Dron::licz_wierzcholki(const Wektor &trans)
 {                                               
-    Wektor Wynik;
-
-    //Wynik=orient*(*this)+trans; //orient pochodzi z klasy bryla, natomiast trans będzie wyliczane na podstawie cos i sin w razie jakby płynął pod kątem
-    return Wynik;
+    for (uint i = 0; i < wierzcholki.size(); ++i) {
+        wierzcholki[i] = orient * wierzcholki[i] + trans;
+    }
 }
 
 std::vector<std::vector<drawNS::Point3D> > Dron::surface() const
@@ -44,5 +43,48 @@ std::vector<std::vector<drawNS::Point3D> > Dron::surface() const
 
 void Dron::rotacja(double kat)
 {
-    rotacjaZ(&wierzcholki, S, kat);
+    // obrotZ zaklada, że obrót jest wykonywany względem punktu (0,0)
+//    const Macierz m = obrotZ(kat);
+//    for (uint i = 0; i < wierzcholki.size(); ++i) {
+//        wierzcholki[i] = m * wierzcholki[i];
+//    }
+
+    for (uint i = 0; i < wierzcholki.size(); ++i) {
+        double nowyX = (wierzcholki[i][0] - S[0]) * cos(kat * M_PI/180) - (wierzcholki[i][1] - S[1]) * sin(kat * M_PI/180) + S[0];
+        double nowyY = (wierzcholki[i][0] - S[0]) * sin(kat * M_PI/180) + (wierzcholki[i][1] - S[1]) * cos(kat * M_PI/180) + S[1];
+        wierzcholki[i][0] = nowyX;
+        wierzcholki[i][1] = nowyY;
+    }
+}
+
+void Dron::wykonajRuch(double kat, double odleglosc)
+{
+    // Wyznaczamy wektor przesuniącia
+    // TODO: Uwzględnić kąt.
+
+    const Wektor w1 = wierzcholki[0];
+    const Wektor w2 = wierzcholki[1];
+
+    double delta_x = w1[0] - w2[0];
+    double delta_y = w1[1] - w2[1];
+    double theta_radians = atan2(delta_y, delta_x);
+
+    double przesuniecieX = odleglosc * cos(theta_radians);
+    double przesuniecieY = odleglosc * sin(theta_radians);
+
+    Wektor w;
+    w[0] = przesuniecieX;
+    w[1] = przesuniecieY;
+    w[2] = 0;
+
+    licz_wierzcholki(w);
+
+    zaktualizujSrodek();
+}
+
+void Dron::zaktualizujSrodek()
+{
+    S[0] = (wierzcholki[0][0] + wierzcholki[2][0]) / 2;
+    S[1] = (wierzcholki[0][1] + wierzcholki[2][1]) / 2;
+    S[2] = (wierzcholki[0][2] + wierzcholki[5][2]) / 2;
 }

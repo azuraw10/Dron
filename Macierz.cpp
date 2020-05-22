@@ -1,7 +1,7 @@
 #include "Macierz.hh"
 
 //funkcja mnożąca macierz przez wektor
-Wektor Macierz::operator*(Wektor W)
+Wektor Macierz::operator*(const Wektor &W) const
 {
     Wektor Wynik;
     
@@ -21,7 +21,7 @@ Wektor Macierz::operator*(Wektor W)
 }
 
 //funkcja mnożąca macierz razy macierz
-Macierz Macierz::operator*(Macierz M)
+Macierz Macierz::operator*(const Macierz &M) const
 {
     Macierz Wynik;
 

@@ -14,7 +14,8 @@ void wyswietlMenu()
 {
     cout << "Menu\n";
     cout << "========\n";
-    cout << "o - Rotacja.\n";
+    cout << "o - Zadaj zmiane orientacji.\n";
+    cout << "r - Zadaj ruch na wprost\n";
     cout << "c - Reset do położenia domyślnego.\n";
     cout << "m - Wyświetl menu.\n";
     cout << "k - Zakończ program.\n";
@@ -33,6 +34,16 @@ bool odczytjWyborIWykonajAkcje(Silnik *silnik)
         double kat;
         cin >> kat;
         silnik->obrocDrona(kat);
+        break;
+    }
+    case 'r': {
+        cout << "Podaj wartosc kata (wznoszenia/opadania) w stopniach:";
+        double kat;
+        cin >> kat;
+        cout << "Podaj wartosc odleglosci, na ktora ma sie przemiescic dron:";
+        double odleglosc;
+        cin >> odleglosc;
+        silnik->wykonajRuchDrona(kat, odleglosc);
         break;
     }
     case 'c': {
