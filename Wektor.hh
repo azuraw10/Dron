@@ -11,12 +11,7 @@ using std::endl;
 
 // klasa Wektor wykorzystywana w macierzy(plik skopiowany z poprzedniej pracy)
 class Wektor {
-  
-  double tab[3];
-  
   public:
-  
-
   Wektor operator + (const Wektor & W2) const;
   Wektor operator - (const Wektor & W2) const;
   double operator * (const Wektor & W2) const;
@@ -32,6 +27,10 @@ class Wektor {
   
   const double & operator[] (int index) const;
   double & operator[] (int index);    
+
+private:
+  double tab[3];
+
 };
 
 Wektor operator * (double l1, Wektor W2);

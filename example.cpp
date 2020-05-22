@@ -16,36 +16,24 @@ void wait4key() {
 
 int main() {
 
-dron DD;
+
+  dron dron;
 
   std::shared_ptr<drawNS::Draw3DAPI> api(new APIGnuPlot3D(-5,5,-5,5,-5,5,1000)); //włacza gnuplota, pojawia się scena [-5,5] x [-5,5] x [-5,5] odświeżana co 1000 ms
-  //drawNS::Draw3DAPI * api = new APIGnuPlot3D(-5,5,-5,5,-5,5,1000); //alternatywnie zwykły wskaźnik
   api->change_ref_time_ms(0); //odświeżanie sceny zmienione na opcję "z każdym pojawieniem się lub zniknięciem kształtu"
-  
-  //ogólna funkcja do rysowania prostopadłościanu później chciałbym zamienić te wartości na wektory
-  //najprawdopodbniej przez błąd w klasie dron nie może poprawnie odczytać pierwszego wierzchołka w postaci wektora
-  api->draw_surface(vector<vector<Point3D> > {{
-    drawNS::Point3D(0,0,0), drawNS::Point3D(0,2,0), drawNS::Point3D(2,2,0), drawNS::Point3D(2,0,0), drawNS::Point3D(0,0,0)
-	  },{
-	drawNS::Point3D(0,0,0), drawNS::Point3D(0,0,2), drawNS::Point3D(0,2,2)       
-	  },{
-	drawNS::Point3D(0,2,0), drawNS::Point3D(0,2,2), drawNS::Point3D(2,2,2)       
-	  },{
-	drawNS::Point3D(2,2,0), drawNS::Point3D(2,2,2), drawNS::Point3D(2,0,2)       
-	  },{
-	drawNS::Point3D(2,0,0), drawNS::Point3D(2,0,2), drawNS::Point3D(0,0,2)       
-	  }},"red");
+
+  api->draw_surface(dron.surface());
 
 
   //rysowanie dna, taflę wody chcę zrobić podobnie z tym że chcę uzależnić ją od sin albo cos
-  for(int i=-5; i<5; i++)
-  {
-  api->draw_surface(vector<vector<Point3D>> {{
-    drawNS::Point3D(i,-5, -5), drawNS::Point3D(i,5,-5)
-  },{
-    drawNS::Point3D(-5,i,-5), drawNS::Point3D(5,i,-5)
-  }}, "grey");
-  }
+//  for(int i=-5; i<5; i++)
+//  {
+//  api->draw_surface(vector<vector<Point3D>> {{
+//    drawNS::Point3D(i,-5, -5), drawNS::Point3D(i,5,-5)
+//  },{
+//    drawNS::Point3D(-5,i,-5), drawNS::Point3D(5,i,-5)
+//  }}, "grey");
+//  }
 
     wait4key();
   
