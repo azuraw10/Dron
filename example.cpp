@@ -25,7 +25,7 @@ dron DD;
   //ogólna funkcja do rysowania prostopadłościanu później chciałbym zamienić te wartości na wektory
   //najprawdopodbniej przez błąd w klasie dron nie może poprawnie odczytać pierwszego wierzchołka w postaci wektora
   api->draw_surface(vector<vector<Point3D> > {{
-	drawNS::Point3D(DD.A), drawNS::Point3D(0,2,0), drawNS::Point3D(2,2,0), drawNS::Point3D(2,0,0), drawNS::Point3D(0,0,0)
+    drawNS::Point3D(0,0,0), drawNS::Point3D(0,2,0), drawNS::Point3D(2,2,0), drawNS::Point3D(2,0,0), drawNS::Point3D(0,0,0)
 	  },{
 	drawNS::Point3D(0,0,0), drawNS::Point3D(0,0,2), drawNS::Point3D(0,2,2)       
 	  },{

@@ -11,8 +11,6 @@
 //klasa mająca na celu pilnowanie orientacji bryły/prostopadloscianu/drona
 class bryla
 {
-    Macierz orient;
-
     public:
     //konstruktor który daje na przekątnej wartości 1 czyli początkową orientację
     bryla()
@@ -35,6 +33,9 @@ class bryla
 
     //funkcja wykonująca obrót o podany kąt
     Macierz obrotZ(double kat);
+
+protected:
+    Macierz orient;
 };
 
 #endif

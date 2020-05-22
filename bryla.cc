@@ -26,7 +26,7 @@ Macierz bryla::obrotZ(double kat)
             {
                 obrot[i][j]=cos(kat*PI/180);
             }
-            else if (i=2 && j==2)
+            else if (i==2 && j==2)
             {
                 obrot[i][j]=1;
             }

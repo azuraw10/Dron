@@ -9,7 +9,7 @@
 
 //clasa dron dziedziczy z prostopad długości boków oraz z bryly orientacje
 // metody na wyliczenie orientacji są w bryle, natomiast w tej klasie jest metoda na wyliczanie wierzcholkow po ruchu
-class dron :private prostopad, :private bryla
+class dron :public prostopad, public bryla
 {
     Wektor A,B,C,D,E,F,G,H;//abcd podstawa efgh górna podstawa
     Wektor S;
@@ -33,9 +33,11 @@ class dron :private prostopad, :private bryla
     }
 
     //funkcja która ma odwoływać się do danego wektora
-    Wektor operator [](string i);
+    Wektor operator [](std::string i);
     //funkcja wyliczająca wektory wierzcholkow
     Wektor licz_wierzcholki(const Wektor S);
+
+    Wektor getA() const;
 };
 
 #endif

@@ -3,22 +3,24 @@
 //W tej funkcji chciałem stworzyć dostęp do wektorów w klasie dron
 // nie wiem jak zrobić to sprytniej
 //wyskakuje błąd z stringiem, że jest niezdefiniowany
-Wektor dron::operator [](string i)
+Wektor dron::operator [](std::string i)
 {
-    if (i='A')
+    if (i=="A")
         return A;
-    else if (i='B')
+    else if (i=="B")
         return B;
-    else if (i='C')
+    else if (i=="C")
         return C;
-    else if (i='D')
+    else if (i=="D")
         return D;
-    else if (i='E')
+    else if (i=="E")
         return E;
-    else if (i='F')
+    else if (i=="F")
         return F;
-    else if (i='G')
+    else if (i=="G")
         return G;
+
+    return {};
 }
 
 //w tej funkcji chciałem aktualizować współrzędne wektorów
@@ -27,6 +29,11 @@ Wektor dron::licz_wierzcholki(const Wektor trans)
 {                                               
     Wektor Wynik;
 
-    Wynik=orient*(*this)+trans; //orient pochodzi z klasy bryla, natomiast trans będzie wyliczane na podstawie cos i sin w razie jakby płynął pod kątem
+    //Wynik=orient*(*this)+trans; //orient pochodzi z klasy bryla, natomiast trans będzie wyliczane na podstawie cos i sin w razie jakby płynął pod kątem
     return Wynik;
+}
+
+Wektor dron::getA() const
+{
+    return A;
 }
