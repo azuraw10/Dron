@@ -21,6 +21,12 @@ void wyswietlMenu()
     cout << "k - Zakończ program.\n";
 }
 
+void wyswietlInfoOObiektachWektor()
+{
+    cout <<  "Aktualna ilosc obiektow Wektor3D: " << Wektor::liczbaStworzonychObiektow() << endl;
+    cout <<  "Laczna ilosc obiektow Wektor3D: " << Wektor::liczbaIstniejacychObiektow() << endl;
+}
+
 bool odczytjWyborIWykonajAkcje(Silnik *silnik)
 {
     cout << "Twoj wybor, m - menu:\n";
@@ -35,6 +41,7 @@ bool odczytjWyborIWykonajAkcje(Silnik *silnik)
         double kat;
         cin >> kat;
         silnik->obrocDrona(kat);
+        wyswietlInfoOObiektachWektor();
         break;
     }
     case 'r': {
@@ -45,6 +52,7 @@ bool odczytjWyborIWykonajAkcje(Silnik *silnik)
         double odleglosc;
         cin >> odleglosc;
         silnik->wykonajRuchDrona(kat, odleglosc);
+        wyswietlInfoOObiektachWektor();
         break;
     }
     case 'c': {
@@ -74,10 +82,19 @@ void wait4key() {
 }
 
 int main() {
-  Silnik silnik;
+    // Dodaj dodatkowy zakres tak, żeby wszystkie obiekty Wektor zostały usunięte
+    // przed komunikatem "koniec programu" - tak żeby wyswietlInfoOObiektachWektor wyświetliło,
+    // że obecnie nie istnieje żaden obiekt Wektor.
+    {
+        Silnik silnik;
 
-  wyswietlMenu();
-  while (odczytjWyborIWykonajAkcje(&silnik)) {}
+        wyswietlMenu();
+        wyswietlInfoOObiektachWektor();
+        while (odczytjWyborIWykonajAkcje(&silnik)) {}
+    }
+
+  std::cout << "Koniec programu!" << endl;
+  wyswietlInfoOObiektachWektor();
 
   //wait4key();
   
