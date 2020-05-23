@@ -15,8 +15,6 @@ private:
     std::vector<std::pair<uint, uint>> powierzchnie() const override;
 
     double kierunek() const override;
-
-    double a;
 };
 
 #endif // SROBA_H

@@ -41,8 +41,6 @@ void ObiektZMozliwosciaRuchuIRotacji::wykonajRuch(double kat, double odleglosc)
     double przesuniecieX = przesuniecieXY * cos(theta_radians);
     double przesuniecieY = przesuniecieXY * sin(theta_radians);
 
-    std::cout << "AAA" << theta_radians;
-
     // 3. Wyznaczamy przesunięcie w osi Z
     double przesuniecieZ = odleglosc * sin(kat * M_PI/180);
 

@@ -1,7 +1,6 @@
 #include "sroba.h"
 
 Sroba::Sroba(double x, double y, double z, double a, double H)
-    : a(a)
 {
     wierzcholki.resize(12);
 
@@ -14,14 +13,14 @@ Sroba::Sroba(double x, double y, double z, double a, double H)
     double zDolnej = z - H / 2;
     double zGornej = z + H / 2;
 
-    // Musimy wyznaczyć położenia tylko 2 wierzchołków.
+    /* Musimy wyznaczyć położenia tylko 2 wierzchołków.
     // Reszte wyznaczamy na podstawie tych 2
     // W1  ___
     //    /   \
     //W0 /     \
     //   \     /
     //    \___/
-    //
+    */
     double h = a * sqrt(3) / 2;
     double x0 = S[0] - a;
     double y0 = S[1];
@@ -61,7 +60,7 @@ Sroba::Sroba(double x, double y, double z, double a, double H)
 Wektor Sroba::srodek()
 {
     Wektor w;
-    w[0] = wierzcholki[0][0] + a;
+    w[0] = (wierzcholki[0][0] + wierzcholki[3][0]) / 2;
     w[1] = wierzcholki[0][1];
     w[2] = (wierzcholki[0][2] + wierzcholki[6][2]) / 2;
     return w;

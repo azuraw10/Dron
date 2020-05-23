@@ -8,41 +8,32 @@ Silnik::Silnik()
 {
     gnutplotApi.change_ref_time_ms(0);
 
-    dodajDrona();
-    gnutplotApi.draw_surface(dno.surface(), "grey");
-    gnutplotApi.draw_surface(powierzchnia.surface(), "blue");
+    dron.ustawKolor("red");
+    dron.rysuj(&gnutplotApi);
 
-    srobaId = gnutplotApi.draw_surface(sroba.surface(), "green");
+    dno.ustawKolor("grey");
+    dno.rysuj(&gnutplotApi);
+
+    powierzchnia.ustawKolor("blue");
+    powierzchnia.rysuj(&gnutplotApi);
+
+    sroba.ustawKolor("green");
+    sroba.rysuj(&gnutplotApi);
 }
 
 void Silnik::obrocDrona(double kat)
 {
-    usunDrona();
-    gnutplotApi.erase_shape(srobaId);
     dron.rotacja(kat);
     sroba.rotacja(kat);
-    dodajDrona();
-    srobaId = gnutplotApi.draw_surface(sroba.surface(), "green");
+    dron.rysuj(&gnutplotApi);
+    sroba.rysuj(&gnutplotApi);
 }
 
 void Silnik::wykonajRuchDrona(double kat, double odleglosc)
 {
-    usunDrona();
-    gnutplotApi.erase_shape(srobaId);
-
     dron.wykonajRuch(kat, odleglosc);
     sroba.wykonajRuch(kat, odleglosc);
 
-    dodajDrona();
-    srobaId = gnutplotApi.draw_surface(sroba.surface(), "green");
-}
-
-void Silnik::usunDrona()
-{
-    gnutplotApi.erase_shape(dronId);
-}
-
-void Silnik::dodajDrona()
-{
-    dronId = gnutplotApi.draw_surface(dron.surface(), "red");
+    dron.rysuj(&gnutplotApi);
+    sroba.rysuj(&gnutplotApi);
 }
