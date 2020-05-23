@@ -9,6 +9,7 @@
 #include <vector>
 #include "Dr3D_gnuplot_api.hh"
 #include "obiektzmozliwosciaruchuirotacji.h"
+#include "sroba.h"
 
 using drawNS::Point3D;
 
@@ -18,9 +19,9 @@ class Dron : public ObiektZMozliwosciaRuchuIRotacji, public Prostopad
 {    
 public:
     //konstruktor w którym wyznaczam zależności współrzędnych każdego punktu w zależności punktu S
-    Dron(int x=0, int y=0, int z=0, float a=2, float b=2, float c=2);
+    Dron(int x=0, int y=0, int z=0, float a=2.5, float b=2, float c=1);
 
-    double kierunek() const override;
+    double kierunekXY() const override;
 
 private:
     Wektor srodek() override;

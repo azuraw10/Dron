@@ -15,7 +15,7 @@ public:
 
     virtual std::vector<std::vector<Point3D> > surface() const = 0;
 
-    void rysuj(drawNS::APIGnuPlot3D *gnuplotAPI);
+    virtual void rysuj(drawNS::APIGnuPlot3D *gnuplotAPI);
 
     void ustawKolor(const std::string &kolor);
 

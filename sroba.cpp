@@ -1,17 +1,17 @@
 #include "sroba.h"
 
-Sroba::Sroba(double x, double y, double z, double a, double H)
+Sroba::Sroba(const drawNS::Point3D &p, double a, double H)
 {
     wierzcholki.resize(12);
 
     std::vector<Wektor> gornaPodstawa;
 
-    S[0]=x;
-    S[1]=y;
-    S[2]=z;
+    S[0]=p[0];
+    S[1]=p[1];
+    S[2]=p[2];
 
-    double zDolnej = z - H / 2;
-    double zGornej = z + H / 2;
+    double zDolnej = p[2] - H / 2;
+    double zGornej = p[2] + H / 2;
 
     /* Musimy wyznaczyć położenia tylko 2 wierzchołków.
     // Reszte wyznaczamy na podstawie tych 2
@@ -71,7 +71,7 @@ std::vector<std::pair<uint, uint> > Sroba::powierzchnie() const
     return { {0, 5}, {6, 11}};
 }
 
-double Sroba::kierunek() const
+double Sroba::kierunekXY() const
 {
     const Wektor w1 = wierzcholki[0];
     const Wektor w2 = wierzcholki[3];

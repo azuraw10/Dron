@@ -8,13 +8,13 @@ class Sroba : public ObiektZMozliwosciaRuchuIRotacji
 {
 public:
     // a - bok szesciakata formnego
-    Sroba(double x, double y, double z, double a, double H);
+    Sroba(const Point3D &p, double a, double H);
 
 private:
     Wektor srodek() override;
     std::vector<std::pair<uint, uint>> powierzchnie() const override;
 
-    double kierunek() const override;
+    double kierunekXY() const override;
 };
 
 #endif // SROBA_H

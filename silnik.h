@@ -18,9 +18,6 @@ private:
     drawNS::APIGnuPlot3D gnutplotApi;
 
     Dron dron;
-    Sroba sroba;
-    uint dronId;
-    uint srobaId;
     Dno dno;
     Dno powierzchnia; // chwilowo użyj tej samej klasy dla powierzchni
 };

@@ -17,9 +17,20 @@ Dron::Dron(int x, int y, int z, float a, float b, float c)
     wierzcholki[5][0]=a/2;  wierzcholki[5][1]=-b/2;  wierzcholki[5][2]=c/2;
     wierzcholki[6][0]=a/2;  wierzcholki[6][1]=b/2;   wierzcholki[6][2]=c/2;
     wierzcholki[7][0]=-a/2; wierzcholki[7][1]=b/2;   wierzcholki[7][2]=c/2;
+
+    // Wyznaczam bok dla śrób - sróby powinny nie być za duże w stosunku do drona
+    double bokSroby = std::min(a, b) / 3;
+    // Dodaj sroby z "tyłu" drona
+    auto s1 = std::unique_ptr<Sroba>(new Sroba(wierzcholki[6],bokSroby,0.5));
+    s1->ustawKolor("green");
+    obiektyZalezne.push_back(std::move(s1));
+
+    auto s2 = std::unique_ptr<Sroba>(new Sroba(wierzcholki[5],bokSroby,0.5));
+    s2->ustawKolor("green");
+    obiektyZalezne.push_back(std::move(s2));
 }
 
-double Dron::kierunek() const
+double Dron::kierunekXY() const
 {
     const Wektor w1 = wierzcholki[0];
     const Wektor w2 = wierzcholki[1];
