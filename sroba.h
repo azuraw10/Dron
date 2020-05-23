@@ -8,7 +8,7 @@ class Sroba : public ObiektZMozliwosciaRuchuIRotacji
 {
 public:
     // a - bok szesciakata formnego
-    Sroba(const Point3D &p, double a, double H);
+    Sroba(drawNS::APIGnuPlot3D *gnuplotAPI, const Point3D &p, double a, double H);
 
 private:
     Wektor srodek() override;

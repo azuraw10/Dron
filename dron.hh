@@ -19,7 +19,7 @@ class Dron : public ObiektZMozliwosciaRuchuIRotacji, public Prostopad
 {    
 public:
     //konstruktor w którym wyznaczam zależności współrzędnych każdego punktu w zależności punktu S
-    Dron(int x=0, int y=0, int z=0, float a=2.5, float b=2, float c=1);
+    Dron(drawNS::APIGnuPlot3D *gnuplotAPI, int x=0, int y=0, int z=0, float a=2.5, float b=2, float c=1);
 
     double kierunekXY() const override;
 

@@ -6,6 +6,7 @@
 #include "Dr3D_gnuplot_api.hh"
 #include "sroba.h"
 
+// Główna klasa, która odpowiada za prawidłowe wyświetlanie obiektów w gnuplocie
 class Silnik
 {
 public:

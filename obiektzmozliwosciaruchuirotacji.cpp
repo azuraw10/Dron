@@ -1,6 +1,7 @@
 #include "obiektzmozliwosciaruchuirotacji.h"
 
-ObiektZMozliwosciaRuchuIRotacji::ObiektZMozliwosciaRuchuIRotacji()
+ObiektZMozliwosciaRuchuIRotacji::ObiektZMozliwosciaRuchuIRotacji(drawNS::APIGnuPlot3D *gnuplotAPI)
+    : Obiekt(gnuplotAPI)
 {
 
 }
@@ -10,19 +11,19 @@ void ObiektZMozliwosciaRuchuIRotacji::rotacja(double kat)
     rotacja(kat, S);
 }
 
-void ObiektZMozliwosciaRuchuIRotacji::rysuj(drawNS::APIGnuPlot3D *gnuplotAPI)
+void ObiektZMozliwosciaRuchuIRotacji::aktualizuj()
 {
-    Obiekt::rysuj(gnuplotAPI);
+    Obiekt::aktualizuj();
     for (auto &o : obiektyZalezne) {
-        o->rysuj(gnuplotAPI);
+        o->aktualizuj();
     }
 }
 
-void ObiektZMozliwosciaRuchuIRotacji::usunZGnuPlota(drawNS::APIGnuPlot3D *gnuplotAPI)
+void ObiektZMozliwosciaRuchuIRotacji::usunZGnuPlota()
 {
-    Obiekt::usunZGnuPlota(gnuplotAPI);
+    Obiekt::usunZGnuPlota();
     for (auto &o : obiektyZalezne) {
-        o->usunZGnuPlota(gnuplotAPI);
+        o->usunZGnuPlota();
     }
 }
 
@@ -54,6 +55,8 @@ void ObiektZMozliwosciaRuchuIRotacji::rotacja(double kat, const drawNS::Point3D 
         // punktem obrotu dla srób musi być środek drona
         o->rotacja(kat, S);
     }
+
+    aktualizuj();
 }
 
 void ObiektZMozliwosciaRuchuIRotacji::wykonajRuch(double kat, double odleglosc)
@@ -82,6 +85,8 @@ void ObiektZMozliwosciaRuchuIRotacji::wykonajRuch(double kat, double odleglosc)
     for (auto &o : obiektyZalezne) {
         o->wykonajRuch(kat, odleglosc);
     }
+
+    aktualizuj();
 }
 
 std::vector<std::vector<drawNS::Point3D> > ObiektZMozliwosciaRuchuIRotacji::surface() const

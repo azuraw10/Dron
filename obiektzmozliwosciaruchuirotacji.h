@@ -6,7 +6,7 @@
 class ObiektZMozliwosciaRuchuIRotacji : public Obiekt
 {
 public:
-    ObiektZMozliwosciaRuchuIRotacji();
+    ObiektZMozliwosciaRuchuIRotacji(drawNS::APIGnuPlot3D *gnuplotAPI);
 
     // Obracamy obiekt o dany kąt względem osi OZ
     // Punktem odniesienia jest środek obiektu
@@ -21,9 +21,9 @@ public:
 
     std::vector<std::vector<Point3D> > surface() const override;
 
-    void rysuj(drawNS::APIGnuPlot3D *gnuplotAPI) override;
+    void aktualizuj() override;
 
-    void usunZGnuPlota(drawNS::APIGnuPlot3D *gnuplotAPI) override;
+    void usunZGnuPlota() override;
 
 protected:
     virtual Wektor srodek() = 0;

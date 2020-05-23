@@ -1,8 +1,8 @@
 #include "dron.hh"
 #include "math.h"
 
-Dron::Dron(int x, int y, int z, float a, float b, float c)
-    :Prostopad(a,b,c)
+Dron::Dron(drawNS::APIGnuPlot3D *gnuplotAPI, int x, int y, int z, float a, float b, float c)
+    : ObiektZMozliwosciaRuchuIRotacji(gnuplotAPI), Prostopad(a,b,c)
 {
     wierzcholki.resize(8);
 
@@ -21,11 +21,12 @@ Dron::Dron(int x, int y, int z, float a, float b, float c)
     // Wyznaczam bok dla śrób - sróby powinny nie być za duże w stosunku do drona
     double bokSroby = std::min(a, b) / 3;
     // Dodaj sroby z "tyłu" drona
-    auto s1 = std::unique_ptr<Sroba>(new Sroba(wierzcholki[6],bokSroby,0.5));
+    auto s1 = std::unique_ptr<Sroba>(new Sroba(gnuplotAPI, wierzcholki[6],bokSroby,0.5));
     s1->ustawKolor("green");
+    // musimy przenieść, żeby uniknąć błędów kompilacji
     obiektyZalezne.push_back(std::move(s1));
 
-    auto s2 = std::unique_ptr<Sroba>(new Sroba(wierzcholki[5],bokSroby,0.5));
+    auto s2 = std::unique_ptr<Sroba>(new Sroba(gnuplotAPI, wierzcholki[5],bokSroby,0.5));
     s2->ustawKolor("green");
     obiektyZalezne.push_back(std::move(s2));
 }

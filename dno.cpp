@@ -1,8 +1,8 @@
 #include "dno.h"
 
 
-Dno::Dno(int z, int startX, int endX, int startY, int endY)
-    : z(z), startX(startX), endX(endX), startY(startY), endY(endY)
+Dno::Dno(drawNS::APIGnuPlot3D *gnuplotAPI, int z, int startX, int endX, int startY, int endY)
+    : Obiekt(gnuplotAPI), z(z), startX(startX), endX(endX), startY(startY), endY(endY)
 {
 
 }

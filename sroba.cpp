@@ -1,6 +1,7 @@
 #include "sroba.h"
 
-Sroba::Sroba(const drawNS::Point3D &p, double a, double H)
+Sroba::Sroba(drawNS::APIGnuPlot3D *gnuplotAPI, const drawNS::Point3D &p, double a, double H)
+    : ObiektZMozliwosciaRuchuIRotacji(gnuplotAPI)
 {
     wierzcholki.resize(12);
 
