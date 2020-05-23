@@ -9,14 +9,23 @@ Dron::Dron(drawNS::APIGnuPlot3D *gnuplotAPI, int x, int y, int z, float a, float
     S[0]=x;
     S[1]=y;
     S[2]=z;
-    wierzcholki[0][0]=-a/2; wierzcholki[0][1]=-b/2;  wierzcholki[0][2]=-c/2;
-    wierzcholki[1][0]=a/2;  wierzcholki[1][1]=-b/2;  wierzcholki[1][2]=-c/2;
-    wierzcholki[2][0]=a/2;  wierzcholki[2][1]=b/2;   wierzcholki[2][2]=-c/2;
-    wierzcholki[3][0]=-a/2; wierzcholki[3][1]=b/2;   wierzcholki[3][2]=-c/2;
-    wierzcholki[4][0]=-a/2; wierzcholki[4][1]=-b/2;  wierzcholki[4][2]=c/2;
-    wierzcholki[5][0]=a/2;  wierzcholki[5][1]=-b/2;  wierzcholki[5][2]=c/2;
-    wierzcholki[6][0]=a/2;  wierzcholki[6][1]=b/2;   wierzcholki[6][2]=c/2;
-    wierzcholki[7][0]=-a/2; wierzcholki[7][1]=b/2;   wierzcholki[7][2]=c/2;
+
+    // przy wyznaczniu wierzcholków korzystamy z współrzędnych pierwszego wierzcholka
+    wierzcholki[0][0]=x-a/2; wierzcholki[0][1]=y-b/2;  wierzcholki[0][2]=z-c/2;
+
+    wierzcholki[1] = wierzcholki[0];
+    wierzcholki[1][0] += a;
+
+    wierzcholki[2] = wierzcholki[1];
+    wierzcholki[2][1] += b;
+
+    wierzcholki[3] = wierzcholki[0];
+    wierzcholki[3][1] += b;
+
+    for (int i = 4; i < 8; ++i) {
+        wierzcholki[i] = wierzcholki[i - 4];
+        wierzcholki[i][2] += c;
+    }
 
     // Wyznaczam bok dla śrób - sróby powinny nie być za duże w stosunku do drona
     double bokSroby = std::min(a, b) / 3;
