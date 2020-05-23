@@ -1,7 +1,5 @@
 #include <iostream>
 #include "Dr3D_gnuplot_api.hh"
-#include "dron.hh"
-#include "dno.h"
 #include "silnik.h"
 
 using std::vector;

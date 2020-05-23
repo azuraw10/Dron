@@ -2,7 +2,6 @@
 #define SILNIK_H
 
 #include "dron.hh"
-#include "dno.h"
 #include "Dr3D_gnuplot_api.hh"
 #include "sroba.h"
 #include "taflawody.h"
@@ -23,7 +22,7 @@ private:
     drawNS::APIGnuPlot3D gnutplotApi;
 
     Dron dron;
-    Dno dno;
+    Powierzchnia dno;
     TaflaWody taflaWody; // chwilowo użyj tej samej klasy dla powierzchni
 };
 

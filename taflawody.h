@@ -1,23 +1,16 @@
 #ifndef TAFLAWODY_H
 #define TAFLAWODY_H
 
-#include "obiekt.h"
+#include "powierzchnia.h"
 
-class TaflaWody : public Obiekt
+class TaflaWody : public Powierzchnia
 {
 public:
-    TaflaWody(drawNS::APIGnuPlot3D *gnuplotAPI, int z, int startX = -5, int endX = 5, int startY = -5, int endY = 5);
+    // korzystamy z konstruktora z klasy Powierzchnia
+    using Powierzchnia::Powierzchnia;
 
-    virtual std::vector<std::vector<Point3D> > surface() const;
-
-    double wyznaczZ(double x) const;
-
-private:
-    int z;
-    int startX = -5;
-    int endX = 5;
-    int startY = -5;
-    int endY = 5;
+    // Nadpisujemy tę funkcję, ta żeby tafla miał kształ sinusoidy
+    double wyznaczZ(double x) const override;
 };
 
 #endif // TAFLAWODY_H
