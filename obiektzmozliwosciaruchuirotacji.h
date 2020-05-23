@@ -23,6 +23,8 @@ public:
 
     void rysuj(drawNS::APIGnuPlot3D *gnuplotAPI) override;
 
+    void usunZGnuPlota(drawNS::APIGnuPlot3D *gnuplotAPI) override;
+
 protected:
     virtual Wektor srodek() = 0;
     // Zwraca kąt w radianch, który określa w którą stronę powinien poruszać się dron

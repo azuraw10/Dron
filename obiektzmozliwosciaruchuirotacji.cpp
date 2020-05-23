@@ -18,6 +18,14 @@ void ObiektZMozliwosciaRuchuIRotacji::rysuj(drawNS::APIGnuPlot3D *gnuplotAPI)
     }
 }
 
+void ObiektZMozliwosciaRuchuIRotacji::usunZGnuPlota(drawNS::APIGnuPlot3D *gnuplotAPI)
+{
+    Obiekt::usunZGnuPlota(gnuplotAPI);
+    for (auto &o : obiektyZalezne) {
+        o->usunZGnuPlota(gnuplotAPI);
+    }
+}
+
 //w tej funkcji chciałem aktualizować współrzędne wektorów
 //nie wiem jak się odwołać do poszczególnego wektora natomiast wydaje mi się, że (*this) powinno wystarczyć
 void ObiektZMozliwosciaRuchuIRotacji::licz_wierzcholki(const Wektor &trans)

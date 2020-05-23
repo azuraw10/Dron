@@ -17,6 +17,8 @@ public:
 
     virtual void rysuj(drawNS::APIGnuPlot3D *gnuplotAPI);
 
+    virtual void usunZGnuPlota(drawNS::APIGnuPlot3D *gnuplotAPI);
+
     void ustawKolor(const std::string &kolor);
 
 private:

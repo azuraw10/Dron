@@ -13,8 +13,11 @@ public:
 
     void obrocDrona(double kat);
     void wykonajRuchDrona(double kat, double odleglosc);
+    void resetDoDomyslnegoPolozenia();
 
 private:
+    Dron stworzDrona();
+
     drawNS::APIGnuPlot3D gnutplotApi;
 
     Dron dron;

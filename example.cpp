@@ -56,7 +56,8 @@ bool odczytjWyborIWykonajAkcje(Silnik *silnik)
         break;
     }
     case 'c': {
-        // TODO
+        silnik->resetDoDomyslnegoPolozenia();
+        wyswietlInfoOObiektachWektor();
         break;
     }
     case 'm': {
