@@ -4,7 +4,6 @@
 #include <iostream>
 #include "prostopadl.hh"
 #include "Wektor.hh"
-#include "bryla.hh"
 #include "Macierz.hh"
 
 #include <vector>
