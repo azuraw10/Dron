@@ -25,6 +25,11 @@ public:
 
     void usunZGnuPlota() override;
 
+    // zmienia wartość Z dla każdego z wierzcholłków o zadaną wartość
+    void zninZDlaDolnejPodstawyOWartosc(double z);
+
+    double zDlaDolnejPodstawy() const;
+
 protected:
     virtual Wektor srodek() = 0;
     // Zwraca kąt w radianch, który określa w którą stronę powinien poruszać się dron

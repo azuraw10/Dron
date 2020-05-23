@@ -27,6 +27,24 @@ void ObiektZMozliwosciaRuchuIRotacji::usunZGnuPlota()
     }
 }
 
+void ObiektZMozliwosciaRuchuIRotacji::zninZDlaDolnejPodstawyOWartosc(double z)
+{
+    for(auto &w : wierzcholki) {
+        w[2] += z;
+    }
+
+    for (auto &o : obiektyZalezne) {
+        o->zninZDlaDolnejPodstawyOWartosc(z);
+    }
+
+    aktualizuj();
+}
+
+double ObiektZMozliwosciaRuchuIRotacji::zDlaDolnejPodstawy() const
+{
+    return wierzcholki[0][2];
+}
+
 //w tej funkcji chciałem aktualizować współrzędne wektorów
 //nie wiem jak się odwołać do poszczególnego wektora natomiast wydaje mi się, że (*this) powinno wystarczyć
 void ObiektZMozliwosciaRuchuIRotacji::licz_wierzcholki(const Wektor &trans)
@@ -44,11 +62,11 @@ void ObiektZMozliwosciaRuchuIRotacji::rotacja(double kat, const drawNS::Point3D 
 //        wierzcholki[i] = m * wierzcholki[i];
 //    }
 
-    for (uint i = 0; i < wierzcholki.size(); ++i) {
-        double nowyX = (wierzcholki[i][0] - punktOdniesienia[0]) * cos(kat * M_PI/180) - (wierzcholki[i][1] - punktOdniesienia[1]) * sin(kat * M_PI/180) + punktOdniesienia[0];
-        double nowyY = (wierzcholki[i][0] - punktOdniesienia[0]) * sin(kat * M_PI/180) + (wierzcholki[i][1] - punktOdniesienia[1]) * cos(kat * M_PI/180) + punktOdniesienia[1];
-        wierzcholki[i][0] = nowyX;
-        wierzcholki[i][1] = nowyY;
+    for (auto &w : wierzcholki) {
+        double nowyX = (w[0] - punktOdniesienia[0]) * cos(kat * M_PI/180) - (w[1] - punktOdniesienia[1]) * sin(kat * M_PI/180) + punktOdniesienia[0];
+        double nowyY = (w[0] - punktOdniesienia[0]) * sin(kat * M_PI/180) + (w[1] - punktOdniesienia[1]) * cos(kat * M_PI/180) + punktOdniesienia[1];
+        w[0] = nowyX;
+        w[1] = nowyY;
     }
 
     for (auto &o : obiektyZalezne) {

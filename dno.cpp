@@ -20,3 +20,8 @@ std::vector<std::vector<drawNS::Point3D> > Dno::surface() const
 
     return wynik;
 }
+
+double Dno::getZ() const
+{
+    return z;
+}

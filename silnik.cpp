@@ -6,7 +6,7 @@ static int CZAS_TRWANIA_POJEDYNCZEGO_KROKU = 50;  // w ms, więc kazda animacja 
 Silnik::Silnik()
     : gnutplotApi(-5,5,-5,5,-5,5,1000),
       dron(stworzDrona()),
-      dno(&gnutplotApi, -5),
+      dno(&gnutplotApi, -4),
       powierzchnia(&gnutplotApi, 4)
 {
     gnutplotApi.change_ref_time_ms(-1); // ustaw na -1, tak żeby mieć większą kontrolę nad tym kiedy widok jest odświeżany
@@ -34,6 +34,13 @@ void Silnik::wykonajRuchDrona(double kat, double odleglosc)
 
     for (int i = 0; i < LICZBA_KROKOW_DLA_ANIMACJI; ++i) {
         dron.wykonajRuch(kat, odlKrok);
+        if (dno.getZ() > dron.zDlaDolnejPodstawy()) {
+            std::cout << "OSiągnięto dno! Ruch dron został przerwany" << endl;
+            // teraz musimy zaktualizować wartość Z dla drona, żeby nie był poniżej dna
+            dron.zninZDlaDolnejPodstawyOWartosc(dno.getZ() - dron.zDlaDolnejPodstawy());
+            gnutplotApi.redraw();
+            break;
+        }
         gnutplotApi.redraw();
         std::this_thread::sleep_for(std::chrono::milliseconds(CZAS_TRWANIA_POJEDYNCZEGO_KROKU));
     }
