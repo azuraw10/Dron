@@ -19,11 +19,12 @@ void wyswietlMenu()
     cout << "c - Reset do położenia domyślnego.\n";
     cout << "m - Wyświetl menu.\n";
     cout << "k - Zakończ program.\n";
-    cout << "Twoj wybor, m - menu:\n";
 }
 
 bool odczytjWyborIWykonajAkcje(Silnik *silnik)
 {
+    cout << "Twoj wybor, m - menu:\n";
+
     char selection;
 
     cin >> selection;

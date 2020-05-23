@@ -60,22 +60,25 @@ void Dron::rotacja(double kat)
 void Dron::wykonajRuch(double kat, double odleglosc)
 {
     // Wyznaczamy wektor przesuniącia
-    // TODO: Uwzględnić kąt.
+    // 1. Wyznaczamy przesunięcie w 2D (w płaszczyźnie XY).
+    double przesuniecieXY = odleglosc * cos(kat * M_PI/180);
 
+    // 2. Określamy pod jakim kątem będzie poruszał się dron w płaszczyźnie XY
     const Wektor w1 = wierzcholki[0];
     const Wektor w2 = wierzcholki[1];
-
     double delta_x = w1[0] - w2[0];
     double delta_y = w1[1] - w2[1];
     double theta_radians = atan2(delta_y, delta_x);
+    double przesuniecieX = przesuniecieXY * cos(theta_radians);
+    double przesuniecieY = przesuniecieXY * sin(theta_radians);
 
-    double przesuniecieX = odleglosc * cos(theta_radians);
-    double przesuniecieY = odleglosc * sin(theta_radians);
+    // 3. Wyznaczamy przesunięcie w osi Z
+    double przesuniecieZ = odleglosc * sin(kat * M_PI/180);
 
     Wektor w;
     w[0] = przesuniecieX;
     w[1] = przesuniecieY;
-    w[2] = 0;
+    w[2] = przesuniecieZ;
 
     licz_wierzcholki(w);
 
