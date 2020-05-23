@@ -10,8 +10,8 @@ Sroba::Sroba(double x, double y, double z, double a, double H)
     S[1]=y;
     S[2]=z;
 
-    double zDolnej = z - H/2.0;
-    double zGornej = z + H/2.0;
+    double zDolnej = z - H / 2;
+    double zGornej = z + H / 2;
 
     // Musimy wyznaczyć położenia tylko 2 wierzchołków.
     // Reszte wyznaczamy na podstawie tych 2
@@ -57,48 +57,17 @@ Sroba::Sroba(double x, double y, double z, double a, double H)
     }
 }
 
-std::vector<std::vector<drawNS::Point3D> > Sroba::surface() const
-{
-    auto createSurface = [this](const std::vector<uint> &indeksy) -> std::vector<drawNS::Point3D> {
-        std::vector<drawNS::Point3D> vec;
-        for (int index : indeksy) {
-            vec.push_back(wierzcholki[index]);
-        }
-        return vec;
-    };
-
-    std::vector<uint> indeksyDlaDolnejPowierzchni;
-    for (uint i = 0; i < 6; ++i) {
-        indeksyDlaDolnejPowierzchni.push_back(i);
-    }
-    indeksyDlaDolnejPowierzchni.push_back(0);
-
-    std::vector<uint> indeksyDlaGornejPowierzchni;
-    for (uint i = 6; i < 12; ++i) {
-        indeksyDlaGornejPowierzchni.push_back(i);
-    }
-    indeksyDlaGornejPowierzchni.push_back(6);
-
-
-    return { createSurface(indeksyDlaDolnejPowierzchni), createSurface(indeksyDlaGornejPowierzchni) };
-}
-
-void Sroba::licz_wierzcholki(const Wektor &S)
+Wektor Sroba::srodek()
 {
 
 }
 
-void Sroba::rotacja(double kat)
+std::vector<std::pair<uint, uint> > Sroba::powierzchnie() const
 {
-
+    return { {0, 5}, {6, 11}};
 }
 
-void Sroba::wykonajRuch(double kat, double odleglosc)
+double Sroba::kierunek() const
 {
-
-}
-
-void Sroba::zaktualizujSrodek()
-{
-
+    return {};
 }

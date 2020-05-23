@@ -8,7 +8,7 @@ Silnik::Silnik()
 {
     gnutplotApi.change_ref_time_ms(0);
 
-    //dodajDrona();
+    dodajDrona();
     gnutplotApi.draw_surface(dno.surface(), "grey");
     gnutplotApi.draw_surface(powierzchnia.surface(), "blue");
 

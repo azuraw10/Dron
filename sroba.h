@@ -1,28 +1,20 @@
 #ifndef SROBA_H
 #define SROBA_H
 
-#include "obiekt.h"
+#include "obiektzmozliwosciaruchuirotacji.h"
 
 // Sroba jest reprezentowana przez graniastosłop z sześciokątem foremynm w podstawie
-class Sroba : public Obiekt
+class Sroba : public ObiektZMozliwosciaRuchuIRotacji
 {
 public:
     // a - bok szesciakata formnego
     Sroba(double x, double y, double z, double a, double H);
 
-    std::vector<std::vector<Point3D> > surface() const override;
-
-    void licz_wierzcholki(const Wektor &S);
-
-    void rotacja(double kat);
-
-    void wykonajRuch(double kat, double odleglosc);
-
 private:
-    void zaktualizujSrodek();
+    Wektor srodek() override;
+    std::vector<std::pair<uint, uint>> powierzchnie() const override;
 
-    std::vector<Wektor> wierzcholki;
-    Wektor S;
+    double kierunek() const override;
 };
 
 #endif // SROBA_H
