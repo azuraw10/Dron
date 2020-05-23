@@ -54,3 +54,9 @@ std::vector<std::pair<uint, uint> > Dron::powierzchnie() const
 {
     return { {0, 3}, {4, 7}};
 }
+
+double Dron::zDlaDolnejPodstawy() const
+{
+    return wierzcholki[0][2];
+}
+

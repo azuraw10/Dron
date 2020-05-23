@@ -27,22 +27,17 @@ void ObiektZMozliwosciaRuchuIRotacji::usunZGnuPlota()
     }
 }
 
-void ObiektZMozliwosciaRuchuIRotacji::zninZDlaDolnejPodstawyOWartosc(double z)
+void ObiektZMozliwosciaRuchuIRotacji::zmienZDlaDolnejPodstawyOWartosc(double z)
 {
     for(auto &w : wierzcholki) {
         w[2] += z;
     }
 
     for (auto &o : obiektyZalezne) {
-        o->zninZDlaDolnejPodstawyOWartosc(z);
+        o->zmienZDlaDolnejPodstawyOWartosc(z);
     }
 
     aktualizuj();
-}
-
-double ObiektZMozliwosciaRuchuIRotacji::zDlaDolnejPodstawy() const
-{
-    return wierzcholki[0][2];
 }
 
 //w tej funkcji chciałem aktualizować współrzędne wektorów

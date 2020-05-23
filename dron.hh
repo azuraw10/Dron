@@ -23,8 +23,11 @@ public:
 
     double kierunekXY() const override;
 
-private:
+    double zDlaDolnejPodstawy() const;
+
     Wektor srodek() override;
+
+private:
     std::vector<std::pair<uint, uint>> powierzchnie() const override;
 };
 

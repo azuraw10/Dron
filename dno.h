@@ -10,7 +10,7 @@ public:
 
     virtual std::vector<std::vector<Point3D> > surface() const;
 
-    double getZ() const;
+    double pobierzZ() const;
 
 private:
     int z;

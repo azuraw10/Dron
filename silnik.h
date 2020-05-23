@@ -5,8 +5,9 @@
 #include "dno.h"
 #include "Dr3D_gnuplot_api.hh"
 #include "sroba.h"
+#include "taflawody.h"
 
-// Główna klasa, która odpowiada za prawidłowe wyświetlanie obiektów w gnuplocie
+// Główna klasa, która odpowiada za prawidłowe wyświetlanie obiektów w gnuplocie oraz za wykrywanie kolizji z dnem/powierzchnią
 class Silnik
 {
 public:
@@ -23,7 +24,7 @@ private:
 
     Dron dron;
     Dno dno;
-    Dno powierzchnia; // chwilowo użyj tej samej klasy dla powierzchni
+    TaflaWody taflaWody; // chwilowo użyj tej samej klasy dla powierzchni
 };
 
 #endif // SILNIK_H

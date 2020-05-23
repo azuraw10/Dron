@@ -26,9 +26,7 @@ public:
     void usunZGnuPlota() override;
 
     // zmienia wartość Z dla każdego z wierzcholłków o zadaną wartość
-    void zninZDlaDolnejPodstawyOWartosc(double z);
-
-    double zDlaDolnejPodstawy() const;
+    void zmienZDlaDolnejPodstawyOWartosc(double z);
 
 protected:
     virtual Wektor srodek() = 0;
