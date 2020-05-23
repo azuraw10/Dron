@@ -24,7 +24,7 @@ Dron::Dron(int x, int y, int z, float a, float b, float c)
 void Dron::licz_wierzcholki(const Wektor &trans)
 {                                               
     for (uint i = 0; i < wierzcholki.size(); ++i) {
-        wierzcholki[i] = orient * wierzcholki[i] + trans;
+        wierzcholki[i] = wierzcholki[i] + trans;
     }
 }
 

@@ -4,6 +4,7 @@
 #include "dron.hh"
 #include "dno.h"
 #include "Dr3D_gnuplot_api.hh"
+#include "sroba.h"
 
 class Silnik
 {
@@ -20,6 +21,7 @@ private:
     drawNS::APIGnuPlot3D gnutplotApi;
 
     Dron dron;
+    Sroba sroba;
     uint dronId;
     Dno dno;
     Dno powierzchnia; // chwilowo użyj tej samej klasy dla powierzchni

@@ -21,10 +21,10 @@ public:
     //konstruktor w którym wyznaczam zależności współrzędnych każdego punktu w zależności punktu S
     Dron(int x=0, int y=0, int z=0, float a=2, float b=2, float c=2);
 
+    std::vector<std::vector<Point3D> > surface() const override;
+
     //funkcja wyliczająca wektory wierzcholkow
     void licz_wierzcholki(const Wektor &S);
-
-    std::vector<std::vector<Point3D> > surface() const override;
 
     void rotacja(double kat);
 

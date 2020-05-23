@@ -1,13 +1,18 @@
 #include "silnik.h"
 
 Silnik::Silnik()
-    : gnutplotApi(-5,5,-5,5,-5,5,1000), dno(-5), powierzchnia(4)
+    : gnutplotApi(-5,5,-5,5,-5,5,1000),
+      dno(-5),
+      powierzchnia(4),
+      sroba(0,0,0,0.5,0.5)
 {
     gnutplotApi.change_ref_time_ms(0);
 
-    dodajDrona();
+    //dodajDrona();
     gnutplotApi.draw_surface(dno.surface(), "grey");
     gnutplotApi.draw_surface(powierzchnia.surface(), "blue");
+
+    gnutplotApi.draw_surface(sroba.surface(), "green");
 }
 
 void Silnik::obrocDrona(double kat)
