@@ -1,6 +1,7 @@
 #include "sroba.h"
 
 Sroba::Sroba(double x, double y, double z, double a, double H)
+    : a(a)
 {
     wierzcholki.resize(12);
 
@@ -59,7 +60,11 @@ Sroba::Sroba(double x, double y, double z, double a, double H)
 
 Wektor Sroba::srodek()
 {
-
+    Wektor w;
+    w[0] = wierzcholki[0][0] + a;
+    w[1] = wierzcholki[0][1];
+    w[2] = (wierzcholki[0][2] + wierzcholki[6][2]) / 2;
+    return w;
 }
 
 std::vector<std::pair<uint, uint> > Sroba::powierzchnie() const
@@ -69,5 +74,10 @@ std::vector<std::pair<uint, uint> > Sroba::powierzchnie() const
 
 double Sroba::kierunek() const
 {
-    return {};
+    const Wektor w1 = wierzcholki[0];
+    const Wektor w2 = wierzcholki[3];
+    double delta_x = w1[0] - w2[0];
+    double delta_y = w1[1] - w2[1];
+    double theta_radians = atan2(delta_y, delta_x);
+    return theta_radians;
 }

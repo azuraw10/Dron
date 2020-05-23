@@ -12,21 +12,29 @@ Silnik::Silnik()
     gnutplotApi.draw_surface(dno.surface(), "grey");
     gnutplotApi.draw_surface(powierzchnia.surface(), "blue");
 
-    gnutplotApi.draw_surface(sroba.surface(), "green");
+    srobaId = gnutplotApi.draw_surface(sroba.surface(), "green");
 }
 
 void Silnik::obrocDrona(double kat)
 {
     usunDrona();
+    gnutplotApi.erase_shape(srobaId);
     dron.rotacja(kat);
+    sroba.rotacja(kat);
     dodajDrona();
+    srobaId = gnutplotApi.draw_surface(sroba.surface(), "green");
 }
 
 void Silnik::wykonajRuchDrona(double kat, double odleglosc)
 {
     usunDrona();
+    gnutplotApi.erase_shape(srobaId);
+
     dron.wykonajRuch(kat, odleglosc);
+    sroba.wykonajRuch(kat, odleglosc);
+
     dodajDrona();
+    srobaId = gnutplotApi.draw_surface(sroba.surface(), "green");
 }
 
 void Silnik::usunDrona()
