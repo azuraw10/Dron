@@ -40,6 +40,20 @@ void ObiektZMozliwosciaRuchuIRotacji::zmienZDlaDolnejPodstawyOWartosc(double z)
     aktualizuj();
 }
 
+double ObiektZMozliwosciaRuchuIRotacji::minZ() const
+{
+    double z = wierzcholki[0][2];
+    for (uint i = 1; i < wierzcholki.size(); ++i) {
+        z = std::min(z, wierzcholki[0][2]);
+    }
+
+    for (const auto &o : obiektyZalezne) {
+        z = std::min(z, o->minZ());
+    }
+
+    return z;
+}
+
 //w tej funkcji chciałem aktualizować współrzędne wektorów
 //nie wiem jak się odwołać do poszczególnego wektora natomiast wydaje mi się, że (*this) powinno wystarczyć
 void ObiektZMozliwosciaRuchuIRotacji::licz_wierzcholki(const Wektor &trans)

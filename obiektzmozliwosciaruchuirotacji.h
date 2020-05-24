@@ -28,6 +28,9 @@ public:
     // zmienia wartość Z dla każdego z wierzcholłków o zadaną wartość
     void zmienZDlaDolnejPodstawyOWartosc(double z);
 
+    // zwraca wartość Z dla punktu położenego najniżej
+    double minZ() const;
+
 protected:
     virtual Wektor srodek() = 0;
     // Zwraca kąt w radianch, który określa w którą stronę powinien poruszać się dron

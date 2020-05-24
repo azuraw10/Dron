@@ -40,10 +40,10 @@ void Silnik::wykonajRuchDrona(double kat, double odleglosc)
     for (int i = 0; i < LICZBA_KROKOW_DLA_ANIMACJI; ++i) {
         dron.wykonajRuch(kat, odlKrok);
         if (kat < 0) {
-            if (dno.pobierzZ() > dron.zDlaDolnejPodstawy()) {
-                std::cout << "OSiągnięto dno! Ruch dron został przerwany" << endl;
+            if (dno.pobierzZ() > dron.minZ()) {
+                std::cout << "Osiągnięto dno! Ruch dron został przerwany" << endl;
                 // teraz musimy zaktualizować wartość Z dla drona, żeby nie był poniżej dna
-                dron.zmienZDlaDolnejPodstawyOWartosc(dno.pobierzZ() - dron.zDlaDolnejPodstawy());
+                dron.zmienZDlaDolnejPodstawyOWartosc(dno.pobierzZ() - dron.minZ());
                 gnutplotApi.redraw();
                 break;
             }
