@@ -56,10 +56,6 @@ Sroba::Sroba(drawNS::APIGnuPlot3D *gnuplotAPI, const drawNS::Point3D &p, double 
       wierzcholki[i] = wierzcholki[i - 6];
       wierzcholki[i][0] = xGornej;
     }
-
-    std::cout << S << endl;
-    std::cout << "AA" << endl;
-    std::cout << srodek() << endl;
 }
 
 Wektor Sroba::srodek()
