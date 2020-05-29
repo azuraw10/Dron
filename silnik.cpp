@@ -43,7 +43,7 @@ void Silnik::obrocDrona(double kat)
 
         // Ważne: dla rotacji też musimy sprawdzić, gdyż
         // rotacja odbywa się względem środka głównego obiektu (drona, bez śrób),
-        // natomiast okrąg na podstawie którego sprawdzamy kolizje jest opisany na drony (trapez w płaszczyźnie XY)
+        // natomiast okrąg na podstawie którego sprawdzamy kolizje jest opisany na dronie (trapez w płaszczyźnie XY)
         if (sprawdzKolizja()) {
             aktywnyDron->rotacja(-katKrok);
             std::cout << "Kolizja!" << std::endl;
