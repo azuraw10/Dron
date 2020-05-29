@@ -32,7 +32,8 @@ public:
     double minZ() const;
 
 protected:
-    virtual Wektor srodekDlaGlownego() = 0;
+    virtual Wektor srodekDlaGlownego() const = 0;
+
     // Zwraca kąt w radianch, który określa w którą stronę powinien poruszać się dron
     virtual double kierunekXY() const = 0;
     // Zwraca "powierzchnie", na podsawie których konstruowany jest obiekt,

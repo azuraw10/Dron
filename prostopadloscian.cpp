@@ -40,7 +40,7 @@ double Prostopadloscian::kierunekXY() const
     return theta_radians;
 }
 
-Wektor Prostopadloscian::srodekDlaGlownego()
+Wektor Prostopadloscian::srodekDlaGlownego() const
 {
     Wektor w;
     w[0] = (wierzcholki[0][0] + wierzcholki[2][0]) / 2;
@@ -59,3 +59,34 @@ double Prostopadloscian::zDlaDolnejPodstawy() const
     return wierzcholki[0][2];
 }
 
+Prostopadloscian::PunktXY Prostopadloscian::srodek() const
+{
+    return srodekDlaGlownego();
+}
+
+double Prostopadloscian::promien() const
+{
+    PunktXY a = wierzcholki[0];
+    PunktXY b = wierzcholki[1];
+    PunktXY c = wierzcholki[2];
+
+    double dlBokuA = sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
+    double dlBokuB = sqrt(pow(a.x - c.x, 2) + pow(a.y - c.y, 2));
+
+    double R = sqrt(pow(0.5 * dlBokuA, 2) + pow(0.5 * dlBokuB, 2) );
+
+    return R;
+}
+
+
+Prostopadloscian::PunktXY::PunktXY(double x, double y)
+    : x(x), y(y)
+{
+
+}
+
+Prostopadloscian::PunktXY::PunktXY(const Wektor &wektor)
+{
+    x = wektor[0];
+    y = wektor[1];
+}

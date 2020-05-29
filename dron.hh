@@ -18,6 +18,13 @@ class Dron : public Prostopadloscian
 public:
     //konstruktor w którym wyznaczam zależności współrzędnych każdego punktu w zależności punktu S
     Dron(drawNS::APIGnuPlot3D *gnuplotAPI, int x=0, int y=0, int z=0, float a=3, float b=2, float c=2);
+
+    PunktXY srodek() const override;
+
+    double promien() const override;
+
+    void aktualizuj() override;
+
 };
 
 #endif
