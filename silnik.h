@@ -12,7 +12,7 @@ class Silnik
 public:
     enum class DronId
     {
-        Czerwony,
+        Czerwony = 1,
         Zielony,
         Zolty
     };
@@ -22,21 +22,19 @@ public:
     void obrocDrona(double kat);
     void wykonajRuchDrona(double kat, double odleglosc);
     void resetDoDomyslnegoPolozenia();
+    void ustawAktywnegoDrona(DronId id);
 
 private:
-    Dron *stworzDrona(DronId id);
+    void stworzDrony();
 
     drawNS::APIGnuPlot3D gnutplotApi;
 
-    std::vector<std::shared_ptr<Obiekt>> obiekty;
+    std::vector<std::shared_ptr<Obiekt>> przeszkody; //drony & przeszkody
 
-    std::shared_ptr<Dron> dronCzerwony;
-    std::shared_ptr<Dron> dronZielony;
-    std::shared_ptr<Dron> dronZolty;
-
+    std::vector<std::shared_ptr<Dron>> drony;
     Dron *aktywnyDron;
 
-    std::shared_ptr<Dron> dron(DronId id);
+    Dron *dron(DronId id);
 
     Powierzchnia dno;
     TaflaWody taflaWody; // chwilowo użyj tej samej klasy dla powierzchni

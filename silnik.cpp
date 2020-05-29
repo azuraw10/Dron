@@ -12,12 +12,11 @@ static const int maxZ = maxX;
 
 Silnik::Silnik()
     : gnutplotApi(minX,maxX,minY,maxY,minZ,maxZ,-1), // ustaw change_ref_time_ms na -1, tak żeby mieć większą kontrolę nad tym kiedy widok jest odświeżany
-      dronCzerwony(stworzDrona(DronId::Czerwony)),
-      dronZielony(stworzDrona(DronId::Zielony)),
-      dronZolty(stworzDrona(DronId::Zolty)),
       dno(&gnutplotApi, minZ + 1, minX, maxX, minY, maxY),
       taflaWody(&gnutplotApi, maxZ - 3, minX, maxX, minY, maxY)
 {
+    stworzDrony();
+
     dno.ustawKolor("grey");
     taflaWody.ustawKolor("blue");
 
@@ -27,13 +26,10 @@ Silnik::Silnik()
     Prostopadloscian *p2 = new Prostopadloscian(&gnutplotApi, -4, -4, -1, 2, 2, 4);
     p2->ustawKolor("black");
 
-    obiekty.push_back(std::shared_ptr<Obiekt>(p1));
-    obiekty.push_back(std::shared_ptr<Obiekt>(p2));
-    obiekty.push_back(dronZielony);
-    obiekty.push_back(dronZolty);
-    obiekty.push_back(dronCzerwony);
+    przeszkody.push_back(std::shared_ptr<Obiekt>(p1));
+    przeszkody.push_back(std::shared_ptr<Obiekt>(p2));
 
-    aktywnyDron = dronCzerwony.get();
+    ustawAktywnegoDrona(DronId::Czerwony);
 
     gnutplotApi.redraw();
 }
@@ -82,42 +78,39 @@ void Silnik::wykonajRuchDrona(double kat, double odleglosc)
 
 void Silnik::resetDoDomyslnegoPolozenia()
 {
-//    dron->usunZGnuPlota();
-//    dron = stworzDrona();
-//    gnutplotApi.redraw();
+    for (auto d : drony) {
+        d->usunZGnuPlota();
+    }
+
+    stworzDrony();
+
+    gnutplotApi.redraw();
 }
 
-Dron *Silnik::stworzDrona(DronId id)
+void Silnik::ustawAktywnegoDrona(Silnik::DronId id)
 {
-    Dron *dron ;
-    switch (id) {
-    case DronId::Zolty: {
-        dron = new Dron(&gnutplotApi, -2, 2, -5);
-        dron->ustawKolor("yellow");
-        break;
-    }
-    case DronId::Czerwony: {
-        dron = new Dron(&gnutplotApi);
-        dron->ustawKolor("red");
-        break;
-    }
-    case DronId::Zielony: {
-        dron = new Dron(&gnutplotApi, 2, 2, 5);
-        dron->ustawKolor("green");
-        break;
-    }
-    }
-
-    return dron;
+    aktywnyDron = dron(id);
 }
 
-std::shared_ptr<Dron> Silnik::dron(Silnik::DronId id)
+void Silnik::stworzDrony()
 {
-    switch (id) {
-        case DronId::Zolty: return dronZolty;
-        case DronId::Czerwony: return dronCzerwony;
-        case DronId::Zielony: return dronZielony;
-    }
+    drony.clear();
 
-    return {};
+    auto dronCzerwony = std::shared_ptr<Dron>(new Dron(&gnutplotApi));
+    dronCzerwony->ustawKolor("red");
+
+    auto dronZielony = std::shared_ptr<Dron>(new Dron(&gnutplotApi, 2, 2, 5));
+    dronZielony->ustawKolor("green");
+
+    auto dronZolty = std::shared_ptr<Dron>(new Dron(&gnutplotApi, -2, 2, -5));
+    dronZolty->ustawKolor("yellow");
+
+    drony.push_back(dronCzerwony);
+    drony.push_back(dronZielony);
+    drony.push_back(dronZolty);
+}
+
+Dron *Silnik::dron(Silnik::DronId id)
+{
+    return drony.at(static_cast<int>(id) - 1).get();
 }

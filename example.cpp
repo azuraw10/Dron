@@ -14,6 +14,7 @@ void wyswietlMenu()
     cout << "========\n";
     cout << "o - Zadaj zmiane orientacji.\n";
     cout << "r - Zadaj ruch na wprost\n";
+    cout << "z - Zmień aktywnego drona.\n";
     cout << "c - Reset do położenia domyślnego.\n";
     cout << "m - Wyświetl menu.\n";
     cout << "k - Zakończ program.\n";
@@ -50,6 +51,20 @@ bool odczytjWyborIWykonajAkcje(Silnik *silnik)
         double odleglosc;
         cin >> odleglosc;
         silnik->wykonajRuchDrona(kat, odleglosc);
+        wyswietlInfoOObiektachWektor();
+        break;
+    }
+    case 'z': {
+        cout << "Wybierz drona (1 - czerwony, 2 - zielony, 3 - zółty:";
+        int d;
+        cin >> d;
+        if (d < 1 || d > 3) {
+            cout << "Niepoprawny wybór!";
+            break;
+        }
+
+        silnik->ustawAktywnegoDrona(static_cast<Silnik::DronId>(d));
+
         wyswietlInfoOObiektachWektor();
         break;
     }
