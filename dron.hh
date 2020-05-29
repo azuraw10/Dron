@@ -22,9 +22,6 @@ public:
     PunktXY srodek() const override;
 
     double promien() const override;
-
-    void aktualizuj() override;
-
 };
 
 #endif

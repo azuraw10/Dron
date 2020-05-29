@@ -1,6 +1,5 @@
 #include "dron.hh"
 #include "math.h"
-#include <QDebug>
 
 static const double HSroby = 1;
 
@@ -67,12 +66,5 @@ double Dron::promien() const
                     pow( (dlDolnejPodstawy + dlGornejPodstawy) / 2, 2 ) / (4 * dlGornejPodstawy * dlDolnejPodstawy));
 
     return R;
-}
-
-void Dron::aktualizuj()
-{
-    Prostopadloscian::aktualizuj();
-
-    srodek();
 }
 
