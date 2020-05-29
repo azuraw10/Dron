@@ -70,12 +70,40 @@ double Prostopadloscian::promien() const
     PunktXY b = wierzcholki[1];
     PunktXY c = wierzcholki[2];
 
-    double dlBokuA = sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
-    double dlBokuB = sqrt(pow(a.x - c.x, 2) + pow(a.y - c.y, 2));
+    double dlBokuA = PunktXY::odleglosc(a, b);
+    double dlBokuB = PunktXY::odleglosc(a, c);
 
     double R = sqrt(pow(0.5 * dlBokuA, 2) + pow(0.5 * dlBokuB, 2) );
 
     return R;
+}
+
+bool Prostopadloscian::czyKolizja(Prostopadloscian *obiekt)
+{
+    double zMax1 = maxZ();
+    double zMax2 = obiekt->maxZ();
+
+    double zMin1 = minZ();
+    double zMin2 = obiekt->minZ();
+
+    // sprawdzamy kolizje jeśli obiekty przecinają się w osi Z
+    if (zMax2 < zMin1) {
+        return false;
+    }
+
+    if (zMin2 > zMax1) {
+        return false;
+    }
+
+    PunktXY srodek1 = srodek();
+    PunktXY srodek2 = obiekt->srodek();
+
+    double R1 = promien();
+    double R2 = obiekt->promien();
+
+    double odlegloscOdSrodkow = PunktXY::odleglosc(srodek1, srodek2);
+
+    return (odlegloscOdSrodkow < R1 + R2);
 }
 
 
@@ -89,4 +117,9 @@ Prostopadloscian::PunktXY::PunktXY(const Wektor &wektor)
 {
     x = wektor[0];
     y = wektor[1];
+}
+
+double Prostopadloscian::PunktXY::odleglosc(const Prostopadloscian::PunktXY &a, const Prostopadloscian::PunktXY &b)
+{
+    return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
 }

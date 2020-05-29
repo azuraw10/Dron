@@ -27,9 +27,11 @@ public:
 private:
     void stworzDrony();
 
+    bool sprawdzKolizja() const;
+
     drawNS::APIGnuPlot3D gnutplotApi;
 
-    std::vector<std::shared_ptr<Obiekt>> przeszkody; //drony & przeszkody
+    std::vector<std::shared_ptr<Prostopadloscian>> przeszkody; //drony & przeszkody
 
     std::vector<std::shared_ptr<Dron>> drony;
     Dron *aktywnyDron;

@@ -25,11 +25,16 @@ public:
 
     void usunZGnuPlota() override;
 
+    void ustawKolor(const std::string &kolor) override;
+
     // zmienia wartość Z dla każdego z wierzcholłków o zadaną wartość
     void zmienZDlaDolnejPodstawyOWartosc(double z);
 
     // zwraca wartość Z dla punktu położenego najniżej
     double minZ() const;
+
+    // zwraca wartość Z dla punktu położenego najwyżej
+    double maxZ() const;
 
 protected:
     virtual Wektor srodekDlaGlownego() const = 0;

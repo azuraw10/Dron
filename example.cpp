@@ -22,8 +22,8 @@ void wyswietlMenu()
 
 void wyswietlInfoOObiektachWektor()
 {
-    cout <<  "Aktualna ilosc obiektow Wektor: " << Wektor::liczbaStworzonychObiektow() << endl;
-    cout <<  "Laczna ilosc obiektow Wektor: " << Wektor::liczbaIstniejacychObiektow() << endl;
+    cout <<  "Aktualna ilosc obiektow Wektor: " << Wektor::liczbaIstniejacychObiektow() << endl;
+    cout <<  "Laczna ilosc obiektow Wektor: " << Wektor::liczbaStworzonychObiektow() << endl;
 }
 
 bool odczytjWyborIWykonajAkcje(Silnik *silnik)

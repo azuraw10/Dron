@@ -1,7 +1,9 @@
 #include "silnik.h"
 
-static const int LICZBA_KROKOW_DLA_ANIMACJI = 15; // każdy ruch jest dzielony na 15 mniejszych ruchów, tak żeby animacja była płynna
-static const int CZAS_TRWANIA_POJEDYNCZEGO_KROKU = 50;  // w ms, więc kazda animacja będzie trwać 0,75s
+static const int LICZBA_KROKOW_DLA_ANIMACJI_OBROT = 15; // każdy ruch jest dzielony na 15 mniejszych ruchów, tak żeby animacja była płynna
+static const int CZAS_TRWANIA_POJEDYNCZEGO_KROKU_OBROT = 50;  // w ms, więc kazda animacja będzie trwać 0,75s
+
+static const int CZAS_TRWANIA_POJEDYNCZEGO_KROKU_RUCH = 20;
 
 static const int minX = -10;
 static const int maxX = 10;
@@ -26,34 +28,52 @@ Silnik::Silnik()
     Prostopadloscian *p2 = new Prostopadloscian(&gnutplotApi, -4, -4, -1, 2, 2, 4);
     p2->ustawKolor("black");
 
-    przeszkody.push_back(std::shared_ptr<Obiekt>(p1));
-    przeszkody.push_back(std::shared_ptr<Obiekt>(p2));
-
-    ustawAktywnegoDrona(DronId::Czerwony);
+    przeszkody.push_back(std::shared_ptr<Prostopadloscian>(p1));
+    przeszkody.push_back(std::shared_ptr<Prostopadloscian>(p2));
 
     gnutplotApi.redraw();
 }
 
 void Silnik::obrocDrona(double kat)
 {
-    double katKrok = kat / LICZBA_KROKOW_DLA_ANIMACJI;
+    double katKrok = kat / LICZBA_KROKOW_DLA_ANIMACJI_OBROT;
 
-    for (int i = 0; i < LICZBA_KROKOW_DLA_ANIMACJI; ++i) {
+    for (int i = 0; i < LICZBA_KROKOW_DLA_ANIMACJI_OBROT; ++i) {
         aktywnyDron->rotacja(katKrok);
+
+        // Ważne: dla rotacji też musimy sprawdzić, gdyż
+        // rotacja odbywa się względem środka głównego obiektu (drona, bez śrób),
+        // natomiast okrąg na podstawie którego sprawdzamy kolizje jest opisany na drony (trapez w płaszczyźnie XY)
+        if (sprawdzKolizja()) {
+            aktywnyDron->rotacja(-katKrok);
+            std::cout << "Kolizja!" << std::endl;
+            return;
+        }
+
         gnutplotApi.redraw();
-        std::this_thread::sleep_for(std::chrono::milliseconds(CZAS_TRWANIA_POJEDYNCZEGO_KROKU));
+        std::this_thread::sleep_for(std::chrono::milliseconds(CZAS_TRWANIA_POJEDYNCZEGO_KROKU_OBROT));
     }
 }
 
 void Silnik::wykonajRuchDrona(double kat, double odleglosc)
 {
-    double odlKrok = odleglosc / LICZBA_KROKOW_DLA_ANIMACJI;
+    // mały krok, tak żeby nie bylo sytuacji, że dron "przeskoczy" przeszkodę
+    const int liczbaKrokow = odleglosc / 0.2;
+
+    double odlKrok = odleglosc / liczbaKrokow;
 
     double przesuniecieZ = odleglosc * sin(kat * M_PI/180);
     bool czyWDol = przesuniecieZ < -0.000001;
 
-    for (int i = 0; i < LICZBA_KROKOW_DLA_ANIMACJI; ++i) {
+    for (int i = 0; i < liczbaKrokow; ++i) {
         aktywnyDron->wykonajRuch(kat, odlKrok);
+
+        if (sprawdzKolizja()) {
+            aktywnyDron->wykonajRuch(kat, -odlKrok);
+            std::cout << "Kolizja!" << std::endl;
+            return;
+        }
+
         if (czyWDol) {
             // sprawdzamy tylko jeśli poruszamy sie "w dół"
             if (dno.pobierzZ() > aktywnyDron->minZ()) {
@@ -72,7 +92,7 @@ void Silnik::wykonajRuchDrona(double kat, double odleglosc)
         }
 
         gnutplotApi.redraw();
-        std::this_thread::sleep_for(std::chrono::milliseconds(CZAS_TRWANIA_POJEDYNCZEGO_KROKU));
+        std::this_thread::sleep_for(std::chrono::milliseconds(CZAS_TRWANIA_POJEDYNCZEGO_KROKU_RUCH));
     }
 }
 
@@ -108,6 +128,26 @@ void Silnik::stworzDrony()
     drony.push_back(dronCzerwony);
     drony.push_back(dronZielony);
     drony.push_back(dronZolty);
+
+    ustawAktywnegoDrona(DronId::Czerwony);
+}
+
+bool Silnik::sprawdzKolizja() const
+{
+    for (auto o : przeszkody) {
+        if (o->czyKolizja(aktywnyDron)) {
+            return true;
+        }
+    }
+    for (auto d : drony) {
+        if (d.get() == aktywnyDron) {
+            continue;
+        }
+        if (d->czyKolizja(aktywnyDron)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 Dron *Silnik::dron(Silnik::DronId id)

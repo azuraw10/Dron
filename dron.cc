@@ -32,15 +32,16 @@ Prostopadloscian::PunktXY Dron::srodek() const
 
     const PunktXY srodekGornejPodstawy = PunktXY( (a.x + d.x) / 2, ( a.y + d.y ) / 2);
 
-    const Wektor w1 = wierzcholki[0];
-    const Wektor w2 = wierzcholki[1];
     double delta_x = a.x - d.x;
     double delta_y = a.y - d.y;
     double theta_radians = atan2(delta_y, delta_x);
     theta_radians += 90 * M_PI/180;
 
-    double x = srodekGornejPodstawy.x + cos(theta_radians) * R;
-    double y = srodekGornejPodstawy.y + sin(theta_radians) * R;
+    double polowaDlugosciGornejPodstawy = PunktXY::odleglosc(a, srodekGornejPodstawy);
+    double odlegloscOdSrodkaDoGornejPodsstawy = sqrt(pow(R, 2) - pow(polowaDlugosciGornejPodstawy, 2));
+
+    double x = srodekGornejPodstawy.x + cos(theta_radians) * odlegloscOdSrodkaDoGornejPodsstawy;
+    double y = srodekGornejPodstawy.y + sin(theta_radians) * odlegloscOdSrodkaDoGornejPodsstawy;
 
     return {x, y};
 }
@@ -50,7 +51,6 @@ double Dron::promien() const
     // drona możemy traktować jako trapez równoramienny, na płaszczyźnie XY
 
     const PunktXY a = wierzcholki[0];
-    const PunktXY d = wierzcholki[3];
 
     const Sroba *srobaB = dynamic_cast<Sroba*>(obiektyZalezne[1].get());
     const Sroba *srobaC = dynamic_cast<Sroba*>(obiektyZalezne[0].get());
@@ -58,12 +58,13 @@ double Dron::promien() const
     const PunktXY b = srobaB->wierzcholki[11];
     const PunktXY c = srobaC->wierzcholki[7];
 
-    double dlGornejPodstawy = sqrt(pow(a.x - d.x, 2) + pow(a.y - d.y, 2));
-    double dlDolnejPodstawy = sqrt(pow(b.x - c.x, 2) + pow(b.y - c.y, 2));
+    const double AC = PunktXY::odleglosc(a, c);
+    const double AB = PunktXY::odleglosc(a, b);
 
-    // wzór wzięty z internetu
-    double R = sqrt(( dlGornejPodstawy * dlDolnejPodstawy + pow( dlDolnejPodstawy + dlGornejPodstawy, 2) / 4) *
-                    pow( (dlDolnejPodstawy + dlGornejPodstawy) / 2, 2 ) / (4 * dlGornejPodstawy * dlDolnejPodstawy));
+    const int wysokosc = PunktXY::odleglosc(wierzcholki[0], wierzcholki[1]) + HSroby;
+
+    // wzór wzięty z internetu (https://www.matematyczny-swiat.pl/2014/05/promien-okregu-wpisanego-i-opisanego-na.html)
+    double R = AC * AB / (2 * wysokosc);
 
     return R;
 }

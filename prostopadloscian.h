@@ -28,12 +28,16 @@ public:
         PunktXY(const Wektor &wektor);
         double x;
         double y;
+
+        static double odleglosc(const PunktXY &a, const PunktXY &b);
     };
 
     // zwraca srodek dla okregu
     virtual PunktXY srodek() const;
 
     virtual double promien() const;
+
+    bool czyKolizja(Prostopadloscian *obiekt);
 
 private:
     std::vector<std::pair<uint, uint>> powierzchnie() const override;

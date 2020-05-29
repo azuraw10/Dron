@@ -27,6 +27,14 @@ void ObiektZMozliwosciaRuchuIRotacji::usunZGnuPlota()
     }
 }
 
+void ObiektZMozliwosciaRuchuIRotacji::ustawKolor(const std::string &kolor)
+{
+    Obiekt::ustawKolor(kolor);
+    for (auto &o : obiektyZalezne) {
+        o->ustawKolor(kolor);
+    }
+}
+
 void ObiektZMozliwosciaRuchuIRotacji::zmienZDlaDolnejPodstawyOWartosc(double z)
 {
     for(auto &w : wierzcholki) {
@@ -44,7 +52,7 @@ double ObiektZMozliwosciaRuchuIRotacji::minZ() const
 {
     double z = wierzcholki[0][2];
     for (uint i = 1; i < wierzcholki.size(); ++i) {
-        z = std::min(z, wierzcholki[0][2]);
+        z = std::min(z, wierzcholki[i][2]);
     }
 
     for (const auto &o : obiektyZalezne) {
@@ -53,6 +61,21 @@ double ObiektZMozliwosciaRuchuIRotacji::minZ() const
 
     return z;
 }
+
+double ObiektZMozliwosciaRuchuIRotacji::maxZ() const
+{
+    double z = wierzcholki[0][2];
+    for (uint i = 1; i < wierzcholki.size(); ++i) {
+        z = std::max(z, wierzcholki[i][2]);
+    }
+
+    for (const auto &o : obiektyZalezne) {
+        z = std::max(z, o->maxZ());
+    }
+
+    return z;
+}
+
 
 //w tej funkcji chciałem aktualizować współrzędne wektorów
 //nie wiem jak się odwołać do poszczególnego wektora natomiast wydaje mi się, że (*this) powinno wystarczyć
@@ -65,12 +88,6 @@ void ObiektZMozliwosciaRuchuIRotacji::licz_wierzcholki(const Wektor &trans)
 
 void ObiektZMozliwosciaRuchuIRotacji::rotacja(double kat, const drawNS::Point3D &punktOdniesienia)
 {
-    // obrotZ zaklada, że obrót jest wykonywany względem punktu (0,0)
-//    const Macierz m = obrotZ(kat);
-//    for (uint i = 0; i < wierzcholki.size(); ++i) {
-//        wierzcholki[i] = m * wierzcholki[i];
-//    }
-
     for (auto &w : wierzcholki) {
         double nowyX = (w[0] - punktOdniesienia[0]) * cos(kat * M_PI/180) - (w[1] - punktOdniesienia[1]) * sin(kat * M_PI/180) + punktOdniesienia[0];
         double nowyY = (w[0] - punktOdniesienia[0]) * sin(kat * M_PI/180) + (w[1] - punktOdniesienia[1]) * cos(kat * M_PI/180) + punktOdniesienia[1];

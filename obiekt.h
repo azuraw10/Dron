@@ -23,7 +23,7 @@ public:
     // usuwa obiekt z gnyplota
     virtual void usunZGnuPlota();
 
-    void ustawKolor(const std::string &kolor);
+    virtual void ustawKolor(const std::string &kolor);
 
 private:
     drawNS::APIGnuPlot3D *gnuplotAPI;
