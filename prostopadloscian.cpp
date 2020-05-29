@@ -40,7 +40,7 @@ double Prostopadloscian::kierunekXY() const
     return theta_radians;
 }
 
-Wektor Prostopadloscian::srodek()
+Wektor Prostopadloscian::srodekDlaGlownego()
 {
     Wektor w;
     w[0] = (wierzcholki[0][0] + wierzcholki[2][0]) / 2;

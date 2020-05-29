@@ -11,7 +11,7 @@ public:
     Sroba(drawNS::APIGnuPlot3D *gnuplotAPI, const Point3D &p, double a, double H);
 
 private:
-    Wektor srodek() override;
+    Wektor srodekDlaGlownego() override;
     std::vector<std::pair<uint, uint>> powierzchnie() const override;
 
     double kierunekXY() const override;

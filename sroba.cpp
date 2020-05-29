@@ -58,7 +58,7 @@ Sroba::Sroba(drawNS::APIGnuPlot3D *gnuplotAPI, const drawNS::Point3D &p, double 
     }
 }
 
-Wektor Sroba::srodek()
+Wektor Sroba::srodekDlaGlownego()
 {
     Wektor w;
     w[0] = (wierzcholki[0][0] + wierzcholki[6][0]) / 2;

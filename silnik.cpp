@@ -52,7 +52,7 @@ void Silnik::wykonajRuchDrona(double kat, double odleglosc)
                 break;
             }
         } else {
-            double zDlaTaflyWody = taflaWody.wyznaczZ(dron.srodek()[0]);
+            double zDlaTaflyWody = taflaWody.wyznaczZ(dron.srodekDlaGlownego()[0]);
             // pozwalamy się wyburzyć, tak żeby środek podstawy nie wystawał ponad tafle wody
             if (zDlaTaflyWody < dron.zDlaDolnejPodstawy()) {
                 dron.zmienZDlaDolnejPodstawyOWartosc(zDlaTaflyWody - dron.zDlaDolnejPodstawy());

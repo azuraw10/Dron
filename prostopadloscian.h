@@ -20,7 +20,7 @@ public:
 
     double zDlaDolnejPodstawy() const;
 
-    Wektor srodek() override;
+    Wektor srodekDlaGlownego() override;
 
 private:
     std::vector<std::pair<uint, uint>> powierzchnie() const override;

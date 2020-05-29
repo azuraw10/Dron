@@ -107,7 +107,7 @@ void ObiektZMozliwosciaRuchuIRotacji::wykonajRuch(double kat, double odleglosc)
 
     licz_wierzcholki(w);
 
-    S = srodek();
+    S = srodekDlaGlownego();
 
     for (auto &o : obiektyZalezne) {
         o->wykonajRuch(kat, odleglosc);
