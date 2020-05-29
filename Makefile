@@ -3,8 +3,11 @@ CPPFLAGS= -c -g -Wall -pedantic -std=c++17
 __start__: example.out
 	./example.out
 
-example.out: Dr3D_gnuplot_api.o example.o Macierz.o dron.o obiekt.o obiektzmozliwosciaruchuirotacji.o powierzchnia.o silnik.o sroba.o taflawody.o Wektor.o
-	g++ -o example.out example.o Dr3D_gnuplot_api.o Macierz.o dron.o obiekt.o obiektzmozliwosciaruchuirotacji.o powierzchnia.o silnik.o sroba.o taflawody.o Wektor.o -lpthread
+example.out: Dr3D_gnuplot_api.o example.o Macierz.o dron.o prostopadloscian.o obiekt.o obiektzmozliwosciaruchuirotacji.o powierzchnia.o silnik.o sroba.o taflawody.o Wektor.o
+	g++ -o example.out example.o Dr3D_gnuplot_api.o Macierz.o prostopadloscian.o dron.o obiekt.o obiektzmozliwosciaruchuirotacji.o powierzchnia.o silnik.o sroba.o taflawody.o Wektor.o -lpthread
+
+prostopadloscian.o: prostopadloscian.cpp prostopadloscian.h
+	g++ ${CPPFLAGS} -o prostopadloscian.o prostopadloscian.cpp
 
 dron.o: dron.cc dron.hh
 	g++ ${CPPFLAGS} -o dron.o dron.cc
@@ -44,4 +47,4 @@ Dr3D_gnuplot_api.hh: Draw3D_api_interface.hh
 	touch Dr3D_gnuplot_api.hh
 
 clear:
-	rm example.out example.o Dr3D_gnuplot_api.o Wektor.o taflawody.o sroba.o silnik.o obiektzmozliwosciaruchuirotacji.o powierzchnia.o Macierz.o dron.o obiekt.o
+	rm example.out example.o Dr3D_gnuplot_api.o Wektor.o taflawody.o sroba.o silnik.o obiektzmozliwosciaruchuirotacji.o powierzchnia.o Macierz.o dron.o obiekt.o prostopadloscian.o
