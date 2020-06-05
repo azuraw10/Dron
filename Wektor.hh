@@ -5,16 +5,16 @@
 #include <iostream>
 #include <cmath>
 
+#include "licznik.h"
+
 using std::cout;
 using std::cin;
 using std::endl;
 
 // klasa Wektor wykorzystywana w macierzy(plik skopiowany z poprzedniej pracy)
-class Wektor {
+class Wektor : public Licznik<Wektor> {
   public:
-    Wektor();
-    Wektor(const Wektor&w);
-    ~Wektor();
+
   Wektor operator + (const Wektor & W2) const;
   Wektor operator - (const Wektor & W2) const;
   double operator * (const Wektor & W2) const;
@@ -31,12 +31,7 @@ class Wektor {
   const double & operator[] (int index) const;
   double & operator[] (int index);
 
-  static int liczbaStworzonychObiektow();
-  static int liczbaIstniejacychObiektow();
-
 private:
-  static int liczbaStworzonych;
-  static int liczbaIstniejacych;
   double tab[3];
 
 };

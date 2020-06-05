@@ -16,14 +16,23 @@ void wyswietlMenu()
     cout << "r - Zadaj ruch na wprost\n";
     cout << "z - Zmień aktywnego drona.\n";
     cout << "c - Reset do położenia domyślnego.\n";
+    cout << "w - Wyświetl informacje o Wektorach.\n";
+    cout << "b - Wyświetl informacje o Bryłach.\n";
     cout << "m - Wyświetl menu.\n";
     cout << "k - Zakończ program.\n";
 }
 
-void wyswietlInfoOObiektachWektor()
+void wyswietlInfoOWektorach()
 {
-    cout <<  "Aktualna ilosc obiektow Wektor: " << Wektor::liczbaIstniejacychObiektow() << endl;
-    cout <<  "Laczna ilosc obiektow Wektor: " << Wektor::liczbaStworzonychObiektow() << endl;
+    cout <<  "Aktualna ilość obiektów Wektor: " << Wektor::liczbaIstniejacychObiektow() << endl;
+    cout <<  "Łączna ilość obiektów Wektor: " << Wektor::liczbaStworzonychObiektow() << endl;
+}
+
+void wyswietlInfoOBrylach()
+{
+    // ObiektZMozliwosciaRuchuIRotacji odnosi się do brył
+    cout <<  "Aktualna ilość Brył: " << ObiektZMozliwosciaRuchuIRotacji::liczbaIstniejacychObiektow() << endl;
+    cout <<  "Łączna ilość Brył: " << ObiektZMozliwosciaRuchuIRotacji::liczbaStworzonychObiektow() << endl;
 }
 
 bool odczytjWyborIWykonajAkcje(Silnik *silnik)
@@ -40,7 +49,6 @@ bool odczytjWyborIWykonajAkcje(Silnik *silnik)
         double kat;
         cin >> kat;
         silnik->obrocDrona(kat);
-        wyswietlInfoOObiektachWektor();
         break;
     }
     case 'r': {
@@ -51,7 +59,6 @@ bool odczytjWyborIWykonajAkcje(Silnik *silnik)
         double odleglosc;
         cin >> odleglosc;
         silnik->wykonajRuchDrona(kat, odleglosc);
-        wyswietlInfoOObiektachWektor();
         break;
     }
     case 'z': {
@@ -64,13 +71,18 @@ bool odczytjWyborIWykonajAkcje(Silnik *silnik)
         }
 
         silnik->ustawAktywnegoDrona(static_cast<Silnik::DronId>(d));
-
-        wyswietlInfoOObiektachWektor();
         break;
     }
     case 'c': {
         silnik->resetDoDomyslnegoPolozenia();
-        wyswietlInfoOObiektachWektor();
+        break;
+    }
+    case 'b': {
+        wyswietlInfoOBrylach();
+        break;
+    }
+    case 'w': {
+        wyswietlInfoOWektorach();
         break;
     }
     case 'm': {
@@ -103,12 +115,12 @@ int main() {
         Silnik silnik;
 
         wyswietlMenu();
-        wyswietlInfoOObiektachWektor();
         while (odczytjWyborIWykonajAkcje(&silnik)) {}
     }
 
   std::cout << "Koniec programu!" << endl;
-  wyswietlInfoOObiektachWektor();
+  wyswietlInfoOBrylach();
+  wyswietlInfoOWektorach();
 
   //wait4key();
   

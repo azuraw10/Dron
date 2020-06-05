@@ -1,35 +1,7 @@
 #include "Wektor.hh"
 
-int Wektor::liczbaStworzonych = 0;
-int Wektor::liczbaIstniejacych = 0;
-
 //plik stworzony do wcześniejszego programu
 //służy do liczenia wektorów
-Wektor::Wektor()
-{
-    ++liczbaStworzonych;
-    ++liczbaIstniejacych;
-}
-
-Wektor::Wektor(const Wektor &w)
-{
-    ++liczbaStworzonych;
-    ++liczbaIstniejacych;
-
-    // Ponieważ piszemy wlasny kosntruktor kopiujący, musimy wykonać kopiowanie.
-    // Tutaj innym podejście może być dodanie klasy licznik jako klasy bazowej,
-    // najlepiej jako szablon, tak żeby można było użyć licznika dla różnych klas.
-    // Ale ponieważ tutaj musimy skopiować tylko tab, więc dodanie 3 dodatkowych linii do nie problem.
-
-    for (uint i = 0; i < 3; ++i) {
-        tab[i] = w.tab[i];
-    }
-}
-
-Wektor::~Wektor()
-{
-    --liczbaIstniejacych;
-}
 
 Wektor Wektor::operator + (const Wektor & W2) const
 {
@@ -118,16 +90,6 @@ double & Wektor::operator[] (int index)
     }
 
     return tab[index];
-}
-
-int Wektor::liczbaStworzonychObiektow()
-{
-    return liczbaStworzonych;
-}
-
-int Wektor::liczbaIstniejacychObiektow()
-{
-    return liczbaIstniejacych;
 }
 
 const double & Wektor::operator[] (int index) const

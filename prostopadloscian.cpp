@@ -102,7 +102,6 @@ bool Prostopadloscian::czyKolizja(Prostopadloscian *obiekt)
     double R2 = obiekt->promien();
 
     double odlegloscOdSrodkow = PunktXY::odleglosc(srodek1, srodek2);
-
     return (odlegloscOdSrodkow < R1 + R2);
 }
 

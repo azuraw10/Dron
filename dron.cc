@@ -61,7 +61,7 @@ double Dron::promien() const
     const double AC = PunktXY::odleglosc(a, c);
     const double AB = PunktXY::odleglosc(a, b);
 
-    const int wysokosc = PunktXY::odleglosc(wierzcholki[0], wierzcholki[1]) + HSroby;
+    const double wysokosc = PunktXY::odleglosc(wierzcholki[0], wierzcholki[1]) + HSroby;
 
     // wzór wzięty z internetu (https://www.matematyczny-swiat.pl/2014/05/promien-okregu-wpisanego-i-opisanego-na.html)
     double R = AC * AB / (2 * wysokosc);
